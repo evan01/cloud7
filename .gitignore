@@ -1,0 +1,8 @@
+#This is the gitignore file
+*.node_modules/
+.idea/
+cloud7_ios/.DS_Store
+cloud7_ios/.idea/
+cloud7_ios/Pods/
+cloud7_ios/cloud7.xcworkspace/xcuserdata/eknox.xcuserdatad/xcdebugger/
+cloud7_ios/node_modules/

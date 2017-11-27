@@ -10,7 +10,6 @@ import UIKit
 import CoreBluetooth
 
 class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
-    
     var manager:CBCentralManager!
     var peripheral:CBPeripheral!
     let DEVICE_UUID = CBUUID(string: "123A")

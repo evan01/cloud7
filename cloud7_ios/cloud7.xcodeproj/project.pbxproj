@@ -12,6 +12,8 @@
 		074EE66A1FC5DE7800EDD403 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 074EE6681FC5DE7800EDD403 /* Main.storyboard */; };
 		074EE66C1FC5DE7800EDD403 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 074EE66B1FC5DE7800EDD403 /* Assets.xcassets */; };
 		074EE66F1FC5DE7800EDD403 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 074EE66D1FC5DE7800EDD403 /* LaunchScreen.storyboard */; };
+		07D9756E1FCB972C00528393 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07D9756D1FCB972C00528393 /* GoogleService-Info.plist */; };
+		881452B547C01198A519E10C /* Pods_cloud7.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AECF55F662079406B9EC4DBB /* Pods_cloud7.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,10 @@
 		074EE66E1FC5DE7800EDD403 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		074EE6701FC5DE7800EDD403 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07D9756C1FCB3CDE00528393 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		07D9756D1FCB972C00528393 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		107944A871264B4EBA2B2C52 /* Pods-cloud7.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloud7.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cloud7/Pods-cloud7.debug.xcconfig"; sourceTree = "<group>"; };
+		65C44E6A15FDF5803608B424 /* Pods-cloud7.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloud7.release.xcconfig"; path = "Pods/Target Support Files/Pods-cloud7/Pods-cloud7.release.xcconfig"; sourceTree = "<group>"; };
+		AECF55F662079406B9EC4DBB /* Pods_cloud7.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cloud7.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				881452B547C01198A519E10C /* Pods_cloud7.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +49,7 @@
 				074EE6631FC5DE7800EDD403 /* cloud7 */,
 				074EE6621FC5DE7800EDD403 /* Products */,
 				07D9756B1FCB3CDE00528393 /* Frameworks */,
+				D35A781F8D6BF7E593904A1B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,6 +70,7 @@
 				074EE66B1FC5DE7800EDD403 /* Assets.xcassets */,
 				074EE66D1FC5DE7800EDD403 /* LaunchScreen.storyboard */,
 				074EE6701FC5DE7800EDD403 /* Info.plist */,
+				07D9756D1FCB972C00528393 /* GoogleService-Info.plist */,
 			);
 			path = cloud7;
 			sourceTree = "<group>";
@@ -70,8 +79,18 @@
 			isa = PBXGroup;
 			children = (
 				07D9756C1FCB3CDE00528393 /* CoreBluetooth.framework */,
+				AECF55F662079406B9EC4DBB /* Pods_cloud7.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D35A781F8D6BF7E593904A1B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				107944A871264B4EBA2B2C52 /* Pods-cloud7.debug.xcconfig */,
+				65C44E6A15FDF5803608B424 /* Pods-cloud7.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -81,9 +100,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 074EE6731FC5DE7800EDD403 /* Build configuration list for PBXNativeTarget "cloud7" */;
 			buildPhases = (
+				64A2E7529240FE5BF5D678A1 /* [CP] Check Pods Manifest.lock */,
 				074EE65D1FC5DE7800EDD403 /* Sources */,
 				074EE65E1FC5DE7800EDD403 /* Frameworks */,
 				074EE65F1FC5DE7800EDD403 /* Resources */,
+				701A0FB9F2D9248FA54B74EB /* [CP] Embed Pods Frameworks */,
+				6130AEEBBD81A01A3752A97C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -139,12 +161,69 @@
 			buildActionMask = 2147483647;
 			files = (
 				074EE66F1FC5DE7800EDD403 /* LaunchScreen.storyboard in Resources */,
+				07D9756E1FCB972C00528393 /* GoogleService-Info.plist in Resources */,
 				074EE66C1FC5DE7800EDD403 /* Assets.xcassets in Resources */,
 				074EE66A1FC5DE7800EDD403 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6130AEEBBD81A01A3752A97C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cloud7/Pods-cloud7-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		64A2E7529240FE5BF5D678A1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-cloud7-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		701A0FB9F2D9248FA54B74EB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-cloud7/Pods-cloud7-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cloud7/Pods-cloud7-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		074EE65D1FC5DE7800EDD403 /* Sources */ = {
@@ -287,6 +366,7 @@
 		};
 		074EE6741FC5DE7800EDD403 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 107944A871264B4EBA2B2C52 /* Pods-cloud7.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -302,6 +382,7 @@
 		};
 		074EE6751FC5DE7800EDD403 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65C44E6A15FDF5803608B424 /* Pods-cloud7.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

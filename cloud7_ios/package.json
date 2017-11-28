@@ -1,0 +1,8 @@
+{
+  "name": "Cloud7",
+  "version": "1.0.0",
+  "description": "An app that takes in bluetooth audio and posts to the cloud",
+  "main": "index.js",
+  "author": "Evan Knox",
+  "license": "MIT"
+}

@@ -6,3 +6,5 @@ cloud7_ios/.idea/
 cloud7_ios/Pods/
 cloud7_ios/cloud7.xcworkspace/xcuserdata/eknox.xcuserdatad/xcdebugger/
 cloud7_ios/node_modules/
+
+cloud7_ios/firebase/node_modules

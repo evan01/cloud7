@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0722FB661FCC78530007A827 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0722FB651FCC78530007A827 /* ExternalAccessory.framework */; };
 		074EE6651FC5DE7800EDD403 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074EE6641FC5DE7800EDD403 /* AppDelegate.swift */; };
 		074EE6671FC5DE7800EDD403 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074EE6661FC5DE7800EDD403 /* ViewController.swift */; };
 		074EE66A1FC5DE7800EDD403 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 074EE6681FC5DE7800EDD403 /* Main.storyboard */; };
@@ -17,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0722FB651FCC78530007A827 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		0722FB671FCC78530007A827 /* cloud7.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = cloud7.entitlements; sourceTree = "<group>"; };
 		074EE6611FC5DE7800EDD403 /* cloud7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cloud7.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		074EE6641FC5DE7800EDD403 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		074EE6661FC5DE7800EDD403 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -36,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0722FB661FCC78530007A827 /* ExternalAccessory.framework in Frameworks */,
 				881452B547C01198A519E10C /* Pods_cloud7.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,6 +68,7 @@
 		074EE6631FC5DE7800EDD403 /* cloud7 */ = {
 			isa = PBXGroup;
 			children = (
+				0722FB671FCC78530007A827 /* cloud7.entitlements */,
 				074EE6641FC5DE7800EDD403 /* AppDelegate.swift */,
 				074EE6661FC5DE7800EDD403 /* ViewController.swift */,
 				074EE6681FC5DE7800EDD403 /* Main.storyboard */,
@@ -78,6 +83,7 @@
 		07D9756B1FCB3CDE00528393 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0722FB651FCC78530007A827 /* ExternalAccessory.framework */,
 				07D9756C1FCB3CDE00528393 /* CoreBluetooth.framework */,
 				AECF55F662079406B9EC4DBB /* Pods_cloud7.framework */,
 			);
@@ -133,6 +139,12 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.WAC = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -176,9 +188,15 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-cloud7/Pods-cloud7-resources.sh",
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle,
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -210,12 +228,18 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-cloud7/Pods-cloud7-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -369,6 +393,7 @@
 			baseConfigurationReference = 107944A871264B4EBA2B2C52 /* Pods-cloud7.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = cloud7/cloud7.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M8824YVVEG;
 				INFOPLIST_FILE = cloud7/Info.plist;
@@ -385,6 +410,7 @@
 			baseConfigurationReference = 65C44E6A15FDF5803608B424 /* Pods-cloud7.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = cloud7/cloud7.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M8824YVVEG;
 				INFOPLIST_FILE = cloud7/Info.plist;

@@ -13,6 +13,9 @@
 		074EE66A1FC5DE7800EDD403 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 074EE6681FC5DE7800EDD403 /* Main.storyboard */; };
 		074EE66C1FC5DE7800EDD403 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 074EE66B1FC5DE7800EDD403 /* Assets.xcassets */; };
 		074EE66F1FC5DE7800EDD403 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 074EE66D1FC5DE7800EDD403 /* LaunchScreen.storyboard */; };
+		0752AE581FCE31A10023BB1B /* BLEPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0752AE571FCE31A10023BB1B /* BLEPeripheral.swift */; };
+		079D8DD61FCDC0C100F0A965 /* BLEHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079D8DD51FCDC0C100F0A965 /* BLEHandler.swift */; };
+		079D8DD81FCDC0EA00F0A965 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079D8DD71FCDC0EA00F0A965 /* BLEManager.swift */; };
 		07D9756E1FCB972C00528393 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07D9756D1FCB972C00528393 /* GoogleService-Info.plist */; };
 		881452B547C01198A519E10C /* Pods_cloud7.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AECF55F662079406B9EC4DBB /* Pods_cloud7.framework */; };
 /* End PBXBuildFile section */
@@ -27,6 +30,10 @@
 		074EE66B1FC5DE7800EDD403 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		074EE66E1FC5DE7800EDD403 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		074EE6701FC5DE7800EDD403 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0752AE571FCE31A10023BB1B /* BLEPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEPeripheral.swift; sourceTree = "<group>"; };
+		079D8DD51FCDC0C100F0A965 /* BLEHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEHandler.swift; sourceTree = "<group>"; };
+		079D8DD71FCDC0EA00F0A965 /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
+		079E34601FCE02EF00E1AD1E /* BluetoothKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BluetoothKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		07D9756C1FCB3CDE00528393 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		07D9756D1FCB972C00528393 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		107944A871264B4EBA2B2C52 /* Pods-cloud7.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloud7.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cloud7/Pods-cloud7.debug.xcconfig"; sourceTree = "<group>"; };
@@ -76,6 +83,9 @@
 				074EE66D1FC5DE7800EDD403 /* LaunchScreen.storyboard */,
 				074EE6701FC5DE7800EDD403 /* Info.plist */,
 				07D9756D1FCB972C00528393 /* GoogleService-Info.plist */,
+				079D8DD51FCDC0C100F0A965 /* BLEHandler.swift */,
+				079D8DD71FCDC0EA00F0A965 /* BLEManager.swift */,
+				0752AE571FCE31A10023BB1B /* BLEPeripheral.swift */,
 			);
 			path = cloud7;
 			sourceTree = "<group>";
@@ -83,6 +93,7 @@
 		07D9756B1FCB3CDE00528393 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				079E34601FCE02EF00E1AD1E /* BluetoothKit.framework */,
 				0722FB651FCC78530007A827 /* ExternalAccessory.framework */,
 				07D9756C1FCB3CDE00528393 /* CoreBluetooth.framework */,
 				AECF55F662079406B9EC4DBB /* Pods_cloud7.framework */,
@@ -255,7 +266,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				074EE6671FC5DE7800EDD403 /* ViewController.swift in Sources */,
+				079D8DD81FCDC0EA00F0A965 /* BLEManager.swift in Sources */,
+				079D8DD61FCDC0C100F0A965 /* BLEHandler.swift in Sources */,
 				074EE6651FC5DE7800EDD403 /* AppDelegate.swift in Sources */,
+				0752AE581FCE31A10023BB1B /* BLEPeripheral.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +411,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M8824YVVEG;
 				INFOPLIST_FILE = cloud7/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.group7.cloud7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -414,6 +429,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M8824YVVEG;
 				INFOPLIST_FILE = cloud7/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.group7.cloud7;
 				PRODUCT_NAME = "$(TARGET_NAME)";

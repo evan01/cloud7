@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "source": "firebase"
+  },
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}

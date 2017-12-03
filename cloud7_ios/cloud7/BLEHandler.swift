@@ -9,9 +9,13 @@
 import UIKit
 import CoreBluetooth
 
-class BLEHandler: NSObject, CBCentralManagerDelegate{
+class BLEHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate{
+    var discoveredPeripherals = [String]()
+    var connectedPeripherals = [CBPeripheral]()
+
+    
     let DEVICE_UUID = CBUUID(string: "123A")
-    let DEVICE_NAME = "Blank"
+    let DEVICE_NAME = "Cloud7"
     //    let SERVICE_UUID = CBUUID(string: "A495FF21-C5B1-4B44-B512-137AfA2D74D1")
     let SERVICE_UUID = CBUUID(string: "2222")
     var discovered = false;
@@ -57,15 +61,22 @@ class BLEHandler: NSObject, CBCentralManagerDelegate{
             }
             print(advertisementData.debugDescription);
             central.connect(peripheral, options: nil)
+            
+            self.connectedPeripherals.append(peripheral)
             peripheral.discoverServices(nil)
         }else{
-            print("Discovered Peripheral: " + name + "\n")
+//            self.discovered
+            if(!self.discoveredPeripherals.contains(name)){
+                print("Discovered Peripheral: " + name + "\n")
+                self.discoveredPeripherals.append(name)
+            }
         }
 //        central.connect(self.connectedPeripheral, options: nil)
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Connected...")
+        peripheral.delegate = self
         peripheral.discoverServices(nil)
     }
     

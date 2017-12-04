@@ -48,14 +48,15 @@
 #include <stdlib.h>
 #include <float.h>
 #include <math.h>
-#include "state_machine/state_machine.h"
+#include "state_machine.h"
+
+//#include "display.h"
 
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-/* Private variables ---------------------------------------------------------*/
 #define WINDOW_SIZE 10000
 #define RECORD_TIME 4000
 int audio_buffer[WINDOW_SIZE];
@@ -69,6 +70,8 @@ uint32_t adcVal;
 state_e next_state;
 char* bufftr="Hello!\n\r"; 
 uint8_t buffrec[5];
+/* Private variables ---------------------------------------------------------*/
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -80,21 +83,56 @@ void SystemClock_Config(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-void readVoltage(){
-	//get an 8 bit adc value which has to be converted to decimal	
-	adcVal = HAL_ADC_GetValue(&hadc2);
-	printf("%d\n", adcVal);
-	if(counter < WINDOW_SIZE){
-		audio_buffer[counter] = adcVal;
-	}
-	if(counter >= WINDOW_SIZE && counter < (2*WINDOW_SIZE)){
-		audio_buffer_2[counter-WINDOW_SIZE] = adcVal;
-	}
-	if(counter >= (2*WINDOW_SIZE) && counter < (3*WINDOW_SIZE)){
-		audio_buffer_3[counter-2*WINDOW_SIZE] = adcVal;
-	}
 
-	counter++;	
+/**
+ * Reads a voltage from the circuit board, and squares the result
+ * @return the squared value of the voltage read.
+ */
+void readVoltage(){
+	//get an 8 bit adc value which has to be converted to decimal
+	adcVal = HAL_ADC_GetValue(&hadc2);
+	
+	if(state == RECORD){
+		printf("%d\n", adcVal);
+		if(counter < WINDOW_SIZE){
+			audio_buffer[counter] = adcVal;
+		}
+		if(counter >= WINDOW_SIZE && counter < (2*WINDOW_SIZE)){
+			audio_buffer_2[counter-WINDOW_SIZE] = adcVal;
+		}
+		if(counter >= (2*WINDOW_SIZE) && counter < (3*WINDOW_SIZE)){
+			audio_buffer_3[counter-2*WINDOW_SIZE] = adcVal;
+		}
+
+	counter++;
+	}
+}
+
+
+//Interrupt routine
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef*htim) {
+		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_4);
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_RESET);
+		switch(state){
+				case SLEEP:
+					HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
+					break;
+				case RECORD:
+					HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
+					readVoltage();
+					break;
+				case SEND:
+					HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
+					break;
+				case RECEIVE:
+					HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_15);
+					break;
+		}
+	 readVoltage();
+		
 }
 
 int8_t checkButton()
@@ -102,35 +140,14 @@ int8_t checkButton()
 	return HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0);
 }
 
-//Interrupt routine
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef*htim) {
-	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_RESET);
-	switch(state){
-			case SLEEP:
-				HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
-				break;
-			case RECORD:
-				HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
-				readVoltage();
-				break;
-			case SEND:
-				HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
-				break;
-			case RECEIVE:
-				HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_15);
-				break;
-		}
-	
-}
 /* USER CODE END 0 */
 
 int main(void)
 {
 
   /* USER CODE BEGIN 1 */
+    /* Before infinite loop, must read 1 windows length worth of 0's into window */
+	
 
   /* USER CODE END 1 */
 
@@ -140,21 +157,19 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_ADC2_Init();
   MX_TIM2_Init();
   MX_TIM3_Init();
-  MX_ADC2_Init();
   MX_USART2_UART_Init();
 
   /* USER CODE BEGIN 2 */
@@ -162,13 +177,18 @@ int main(void)
 	__HAL_UART_ENABLE_IT (&huart2, UART_IT_TC);
 	HAL_TIM_Base_Start_IT(&htim2);
 	HAL_ADC_Start(&hadc2);
-	int startTime = 0;
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
+	
+	static int startTime = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+  /* USER CODE END WHILE */
+
+  /* USER CODE BEGIN 3 */
 		switch(state){
 			case SLEEP:
 				if(checkButton()){
@@ -189,11 +209,15 @@ int main(void)
 			case SEND:
 				HAL_UART_Transmit_IT(&huart2, (uint8_t *)bufftr, 8); 
 				HAL_UART_Receive_IT(&huart2, buffrec, 5);
-				HAL_Delay(200);
-				printf("Buffer: %c\n", buffrec[0]);
-
+				HAL_Delay(1000);
+				printf("Buffer: %s\n", buffrec);
+				next_state = RECEIVE;
+			
 				break;
 			case RECEIVE:
+//				HAL_UART_Receive_IT(&huart2, buffrec, 5);
+//				printf("Buffer: %s\n", buffrec);
+
 				if(checkButton()){
 					next_state = RECORD;
 					counter = 0;
@@ -204,10 +228,6 @@ int main(void)
 				break;
 		}
 		state = next_state;
-  /* USER CODE END WHILE */
-
-  /* USER CODE BEGIN 3 */
-
   }
   /* USER CODE END 3 */
 

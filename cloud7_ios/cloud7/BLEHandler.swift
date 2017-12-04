@@ -16,8 +16,9 @@ class BLEHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate{
     
     let DEVICE_UUID = CBUUID(string: "123A")
     let DEVICE_NAME = "Cloud7"
-    //    let SERVICE_UUID = CBUUID(string: "A495FF21-C5B1-4B44-B512-137AfA2D74D1")
-    let SERVICE_UUID = CBUUID(string: "2222")
+    let SERVICE_UUID = CBUUID(string: "02366E80-CF3A-11E1-9AB4-0002A5D5C51B")
+    let CHAR_UUID = CBUUID(string: "E23E78A0-CF4A-11E1-8FFC-0002A5D5C51B")
+    
     var discovered = false;
     
     override init() {
@@ -60,6 +61,7 @@ class BLEHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate{
                 print(i)
             }
             print(advertisementData.debugDescription);
+            central.stopScan()
             central.connect(peripheral, options: nil)
             
             self.connectedPeripherals.append(peripheral)
@@ -82,8 +84,10 @@ class BLEHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate{
     
     //Then discovery the characteristic of the service to get the actual data
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        print("Discovering Services")
         for service in peripheral.services! {
             let s = service as CBService
+            print(s.uuid.uuidString)
             if s.uuid == SERVICE_UUID{
                 peripheral.discoverCharacteristics(nil, for: s)
             }
@@ -92,25 +96,20 @@ class BLEHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate{
     
     //Notify when we have a new set of data coming in.
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        print("Discovering Characteristics")
+
         for char in service.characteristics! {
             let c = char as CBCharacteristic
-//            if c.uuid == CHAR_UUID{
-//                print(c)
-//            }
+            if c.uuid == CHAR_UUID {
+                peripheral.setNotifyValue(true, for: c)
+            }
         }
     }
-//
-//    func peripheral (_peripheral: CBPeripheral,didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: Error?){
-//
-//        //        var bytes:UInt32 = 0;
-//
-////        if characteristic.uuid == CHAR_UUID{
-////            print(characteristic.value?.debugDescription ?? "DEFAULT VAL")
-////            print(characteristic.value!)
-////        }
-//
-//        //Then upload the data to the database, and process cloud functions!
-//    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        print("Raw Value: \(characteristic.properties.rawValue)")
+        
+    }
     
     
 }

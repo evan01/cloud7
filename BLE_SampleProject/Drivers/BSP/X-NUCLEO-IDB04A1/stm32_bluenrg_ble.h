@@ -100,6 +100,7 @@ int32_t BlueNRG_SPI_Write(SPI_HandleTypeDef *hspi,
 HAL_StatusTypeDef HAL_SPI_TransmitReceive_Opt(SPI_HandleTypeDef *hspi, const uint8_t *pTxData, uint8_t *pRxData, uint8_t Size);
 HAL_StatusTypeDef HAL_SPI_Transmit_Opt(SPI_HandleTypeDef *hspi, const uint8_t *pTxData, uint8_t Size);
 HAL_StatusTypeDef HAL_SPI_Receive_Opt(SPI_HandleTypeDef *hspi, uint8_t *pRxData, uint8_t Size);
+Hal_Write_Serial(data1, data2, n_bytes1, n_bytes2);
 #endif /* OPTIMIZED_SPI */
 
 

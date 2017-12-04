@@ -61,9 +61,7 @@ fail:
 tBleStatus Sample_Characteristic_Update(uint8_t value)
 {  
   tBleStatus ret;
-	uint8_t buf[0];
-	buf[0] = value;
-	
+	uint8_t buf[1] = { value };
   ret = aci_gatt_update_char_value(sampleServHandle, sampleCharHandle, 0, 1, buf);
 	
   if (ret != BLE_STATUS_SUCCESS){
@@ -97,7 +95,7 @@ void setConnectable(void)
 {  
   tBleStatus ret;
   
-  const char local_name[] = {AD_TYPE_COMPLETE_LOCAL_NAME,'G','X','X'};
+  const char local_name[] = {AD_TYPE_COMPLETE_LOCAL_NAME,'C','l','o','u','d','7'};
   
   /* disable scan response */
   hci_le_set_scan_resp_data(0,NULL);

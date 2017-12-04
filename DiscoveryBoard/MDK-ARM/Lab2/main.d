@@ -39,4 +39,4 @@ lab2\main.o: ../Inc/gpio.h
 lab2\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 lab2\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\float.h
 lab2\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-lab2\main.o: ../Src/state_machine/state_machine.h
+lab2\main.o: ../Src/state_machine.h

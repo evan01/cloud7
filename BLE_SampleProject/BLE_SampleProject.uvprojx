@@ -134,7 +134,7 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4103</DriverSelection>
+            <DriverSelection>4100</DriverSelection>
           </Flash1>
           <bUseTDR>0</bUseTDR>
           <Flash2>STLink\ST-LINKIII-KEIL_SWO.dll</Flash2>
@@ -381,6 +381,11 @@
           <GroupName>User Code</GroupName>
           <Files>
             <File>
+              <FileName>RTE_Components.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\RTE\_Application\RTE_Components.h</FilePath>
+            </File>
+            <File>
               <FileName>bluenrg_interface.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\bluenrg_interface.c</FilePath>
@@ -414,6 +419,16 @@
               <FileName>fput_debug.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\fput_debug.c</FilePath>
+            </File>
+            <File>
+              <FileName>audio_bluetooth_service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\audio_bluetooth_service.c</FilePath>
+            </File>
+            <File>
+              <FileName>audio_bluetooth_service.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Src\audio_bluetooth_service.h</FilePath>
             </File>
           </Files>
         </Group>

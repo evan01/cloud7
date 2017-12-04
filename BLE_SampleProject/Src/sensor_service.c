@@ -404,7 +404,7 @@ tBleStatus Humidity_Update(uint16_t humidity)
 /* Ex.:
  *
  *  tBleStatus ret;    
- *  const char local_name[] = {AD_TYPE_COMPLETE_LOCAL_NAME,'B','l','u','e','N','R','G'};    
+ *  const char local_name[] = {AD_TYPE_COMPLETE_LOCAL_NAME,'C','l','u','e','N','R','G'};    
  *  const uint8_t serviceUUIDList[] = {AD_TYPE_16_BIT_SERV_UUID,0x34,0x12};    
  *  const uint8_t manuf_data[] = {4, AD_TYPE_MANUFACTURER_SPECIFIC_DATA, 0x05, 0x02, 0x01};
  *  

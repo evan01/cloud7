@@ -1,43 +1,3 @@
-/**
-  ******************************************************************************
-  * @file    main.c 
-  * @author  CL
-  * @version V1.0.0
-  * @date    04-July-2014
-  * @brief   This application contains an example which shows how implementing
-  *          a proprietary Bluetooth Low Energy profile: the sensor profile.
-  *          The communication is done using a Nucleo board and a Smartphone
-  *          with BTLE.
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
-  *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-  *
-  ******************************************************************************
-  */
-
 /* Includes ------------------------------------------------------------------*/
 #include "cube_hal.h"
 
@@ -46,7 +6,7 @@
 #include "debug.h"
 #include "stm32_bluenrg_ble.h"
 #include "bluenrg_utils.h"
-
+#include "audio_bluetooth_service.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -94,33 +54,15 @@ void User_Process(AxesRaw_t* p_axes);
 /**
  * @}
  */
-
-/**
- * @brief  Main function to show how to use the BlueNRG Bluetooth Low Energy
- *         expansion board to send data from a Nucleo board to a smartphone
- *         with the support BLE and the "BlueNRG" app freely available on both
- *         GooglePlay and iTunes.
- *         The URL to the iTunes for the "BlueNRG" app is
- *         http://itunes.apple.com/app/bluenrg/id705873549?uo=5
- *         The URL to the GooglePlay is
- *         https://play.google.com/store/apps/details?id=com.st.bluenrg
- *         The source code of the "BlueNRG" app, both for iOS and Android, is
- *         freely downloadable from the developer website at
- *         http://software.g-maps.it/
- *         The board will act as Server-Peripheral.
- *
- *         After connection has been established:
- *          - by pressing the USER button on the board, the cube showed by
- *            the app on the smartphone will rotate.
- *          
- *         The communication is done using a vendor specific profile.
- *
- * @param  None
- * @retval None
- */
-int main(void)
-{
-  const char *name = "BlueNRG";
+ 
+ void sendDataToIos(){
+	//This is assuming we have all the data that we want to send
+	int data[10]= {1,2,3,4,5,6,7,8,9,10};
+	sendAudioData(data);
+}
+ 
+ void initializeEverything(){
+	  const char *name = "Cloud7";
   uint8_t SERVER_BDADDR[] = {0x12, 0x34, 0x00, 0xE1, 0x80, 0x03};
   uint8_t bdaddr[BDADDR_SIZE];
   uint16_t service_handle, dev_name_char_handle, appearance_char_handle;
@@ -172,26 +114,11 @@ int main(void)
    * command after reset otherwise it will fail.
    */
   BlueNRG_RST();
-  
-  PRINTF("HWver %d, FWver %d", hwVersion, fwVersion);
-	PRINTF("\n\n");
-  
-  if (hwVersion > 0x30) { /* X-NUCLEO-IDB05A1 expansion board is used */
-    bnrg_expansion_board = IDB05A1; 
-    /*
-     * Change the MAC address to avoid issues with Android cache:
-     * if different boards have the same MAC address, Android
-     * applications unless you restart Bluetooth on tablet/phone
-     */
-    SERVER_BDADDR[5] = 0x02;
-  }
 
   /* The Nucleo board must be configured as SERVER */
   Osal_MemCpy(bdaddr, SERVER_BDADDR, sizeof(SERVER_BDADDR));
   
-  ret = aci_hal_write_config_data(CONFIG_DATA_PUBADDR_OFFSET,
-                                  CONFIG_DATA_PUBADDR_LEN,
-                                  bdaddr);
+  ret = aci_hal_write_config_data(CONFIG_DATA_PUBADDR_OFFSET, CONFIG_DATA_PUBADDR_LEN, bdaddr);
   if(ret){
     PRINTF("Setting BD_ADDR failed.\n");
   }
@@ -272,17 +199,49 @@ int main(void)
 #endif
 
   /* Set output power level */
-  ret = aci_hal_set_tx_power_level(1,4);
+  ret = aci_hal_set_tx_power_level(1,4); 
+ }
 
+/**
+ * @brief  Main function to show how to use the BlueNRG Bluetooth Low Energy
+ *         expansion board to send data from a Nucleo board to a smartphone
+ *         with the support BLE and the "BlueNRG" app freely available on both
+ *         GooglePlay and iTunes.
+ *         The URL to the iTunes for the "BlueNRG" app is
+ *         http://itunes.apple.com/app/bluenrg/id705873549?uo=5
+ *         The URL to the GooglePlay is
+ *         https://play.google.com/store/apps/details?id=com.st.bluenrg
+ *         The source code of the "BlueNRG" app, both for iOS and Android, is
+ *         freely downloadable from the developer website at
+ *         http://software.g-maps.it/
+ *         The board will act as Server-Peripheral.
+ *
+ *         After connection has been established:
+ *          - by pressing the USER button on the board, the cube showed by
+ *            the app on the smartphone will rotate.
+ *          
+ *         The communication is done using a vendor specific profile.
+ *
+ * @param  None
+ * @retval None
+ */
+int main(void){
+	initializeEverything();
+	int counter = 0;
   while(1)
   {
+	  if (!counter){
+		counter ++;
+		  sendDataToIos();
+	  }
     HCI_Process();
     User_Process(&axes_data);
-#if NEW_SERVICES
-    Update_Time_Characteristics();
-#endif
+	 
+	 
   }
 }
+
+
 
 /**
  * @brief  Process user input (i.e. pressing the USER button on Nucleo board)
@@ -311,7 +270,7 @@ void User_Process(AxesRaw_t* p_axes)
       p_axes->AXIS_X += 1;
       p_axes->AXIS_Y -= 1;
       p_axes->AXIS_Z += 2;
-      //PRINTF("ACC: X=%6d Y=%6d Z=%6d\r\n", p_axes->AXIS_X, p_axes->AXIS_Y, p_axes->AXIS_Z);
+      PRINTF("ACC: X=%6d Y=%6d Z=%6d\r\n", p_axes->AXIS_X, p_axes->AXIS_Y, p_axes->AXIS_Z);
       Acc_Update(p_axes);
     }
   }

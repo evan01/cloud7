@@ -1,0 +1,1 @@
+void sendAudioData(int *data);

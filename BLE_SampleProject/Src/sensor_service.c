@@ -137,48 +137,6 @@ do                                                                              
  * @}
  */
 
-void initializeAudioService(void){
-	/**
-	 * You need 3 things to start a bluetooth service
-	 * 	1. The Service UUID
-	 * 	2. The Service 
-	 */
-  tBleStatus ret;
-
-  uint8_t uuid[16];
-
-  COPY_AUDIO_SERVICE_UUID(uuid); // todo change
-  ret = aci_gatt_add_serv(UUID_TYPE_128, uuid, PRIMARY_SERVICE, 7,
-                          &accServHandle); // todo change
-  if (ret != BLE_STATUS_SUCCESS)
-    goto fail;
-
-  COPY_AUDIO_UUID(uuid);
-  ret = aci_gatt_add_char(accServHandle, UUID_TYPE_128, uuid, 1,
-                          CHAR_PROP_NOTIFY, ATTR_PERMISSION_NONE, 0,
-                          16, 0, &freeFallCharHandle);
-  if (ret != BLE_STATUS_SUCCESS)
-    goto fail;
-
-  COPY_AUDIO_UUID(uuid);
-  ret = aci_gatt_add_char(accServHandle, UUID_TYPE_128, uuid, 6,
-                          CHAR_PROP_NOTIFY | CHAR_PROP_READ,
-                          ATTR_PERMISSION_NONE,
-                          GATT_NOTIFY_READ_REQ_AND_WAIT_FOR_APPL_RESP,
-                          16, 0, &accCharHandle);
-  if (ret != BLE_STATUS_SUCCESS)
-    goto fail;
-
-  PRINTF("Service ACC added. Handle 0x%04X, Free fall Charac handle: 0x%04X, Acc Charac handle: 0x%04X\n", accServHandle, freeFallCharHandle, accCharHandle);
-  return BLE_STATUS_SUCCESS;
-
-fail:
-  PRINTF("Error while adding AUDIO service.\n");
-  return BLE_STATUS_ERROR;
-}
-}
-
-
 /** @defgroup SENSOR_SERVICE_Exported_Functions 
  * @{
  */
@@ -188,7 +146,7 @@ fail:
  * @param  None
  * @retval tBleStatus Status
  */
-tBleStatus Add_Acc_Service(void)
+tBleStatus Add_Audio_Service(void)
 {
   tBleStatus ret;
 
@@ -223,6 +181,52 @@ fail:
   PRINTF("Error while adding ACC service.\n");
   return BLE_STATUS_ERROR;
 }
+
+
+///** @defgroup SENSOR_SERVICE_Exported_Functions 
+// * @{
+// */
+///**
+// * @brief  Add an accelerometer service using a vendor specific profile.
+// *
+// * @param  None
+// * @retval tBleStatus Status
+// */
+//tBleStatus Add_Acc_Service(void)
+//{
+//  tBleStatus ret;
+
+//  uint8_t uuid[16];
+
+//  COPY_ACC_SERVICE_UUID(uuid);
+//  ret = aci_gatt_add_serv(UUID_TYPE_128, uuid, PRIMARY_SERVICE, 7,
+//                          &accServHandle);
+//  if (ret != BLE_STATUS_SUCCESS)
+//    goto fail;
+
+//  COPY_FREE_FALL_UUID(uuid);
+//  ret = aci_gatt_add_char(accServHandle, UUID_TYPE_128, uuid, 1,
+//                          CHAR_PROP_NOTIFY, ATTR_PERMISSION_NONE, 0,
+//                          16, 0, &freeFallCharHandle);
+//  if (ret != BLE_STATUS_SUCCESS)
+//    goto fail;
+
+//  COPY_ACC_UUID(uuid);
+//  ret = aci_gatt_add_char(accServHandle, UUID_TYPE_128, uuid, 6,
+//                          CHAR_PROP_NOTIFY | CHAR_PROP_READ,
+//                          ATTR_PERMISSION_NONE,
+//                          GATT_NOTIFY_READ_REQ_AND_WAIT_FOR_APPL_RESP,
+//                          16, 0, &accCharHandle);
+//  if (ret != BLE_STATUS_SUCCESS)
+//    goto fail;
+
+//  PRINTF("Service ACC added. Handle 0x%04X, Free fall Charac handle: 0x%04X, Acc Charac handle: 0x%04X\n", accServHandle, freeFallCharHandle, accCharHandle);
+//  return BLE_STATUS_SUCCESS;
+
+//fail:
+//  PRINTF("Error while adding ACC service.\n");
+//  return BLE_STATUS_ERROR;
+//}
 
 /**
  * @brief  Send a notification for a Free Fall detection.

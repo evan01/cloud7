@@ -24,7 +24,7 @@
 "lab2\stm32f4xx_hal_flash_ex.o"
 "lab2\stm32f4xx_hal_pwr.o"
 "lab2\stm32f4xx_hal_cortex.o"
-"lab2\stm32f4xx_hal_uart_1.o"
+"lab2\stm32f4xx_hal_uart.o"
 "lab2\startup_stm32f407xx.o"
 "lab2\system_stm32f4xx.o"
 --library_type=microlib --strict --scatter "Lab2\Lab2.sct"

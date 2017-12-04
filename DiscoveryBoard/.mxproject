@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=C:/Users/tluan/gitrepos/DiscoveryBoard/Inc
+HeaderPath=C:/Users/tluan/OneDrive/Documents/Lab2/Lab2FinalVersion/Lab2/Inc
 HeaderFiles=gpio.h;adc.h;tim.h;stm32f4xx_it.h;stm32f4xx_hal_conf.h;main.h;usart.h;
-SourcePath=C:/Users/tluan/gitrepos/DiscoveryBoard/Src
+SourcePath=C:/Users/tluan/OneDrive/Documents/Lab2/Lab2FinalVersion/Lab2/Src
 SourceFiles=gpio.h;adc.h;tim.h;stm32f4xx_it.h;stm32f4xx_hal_conf.h;main.h;gpio.c;adc.c;tim.c;stm32f4xx_it.c;stm32f4xx_hal_msp.c;main.c;usart.h;usart.c;
 
 [PreviousLibFiles]

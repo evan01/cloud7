@@ -33,7 +33,7 @@
 .\objects\main.o: .\Drivers\BSP\STM32F4xx-Nucleo\stm32f4xx_nucleo_bluenrg.h
 .\objects\main.o: .\BLE\STM32_BlueNRG\SimpleBlueNRG_HCI\includes\osal.h
 .\objects\main.o: .\BLE\STM32_BlueNRG\SimpleBlueNRG_HCI\includes\hal_types.h
-.\objects\main.o: .\Inc\sensor_service.h
+.\objects\main.o: .\Inc\sample_service.h
 .\objects\main.o: .\BLE\STM32_BlueNRG\SimpleBlueNRG_HCI\includes\bluenrg_gatt_server.h
 .\objects\main.o: .\BLE\STM32_BlueNRG\SimpleBlueNRG_HCI\includes\compiler.h
 .\objects\main.o: .\BLE\STM32_BlueNRG\SimpleBlueNRG_HCI\includes\ble_status.h
@@ -58,4 +58,3 @@
 .\objects\main.o: .\Drivers\BSP\X-NUCLEO-IDB04A1\stm32_bluenrg_ble.h
 .\objects\main.o: .\BLE\STM32_BlueNRG\SimpleBlueNRG_HCI\includes\bluenrg_utils.h
 .\objects\main.o: .\BLE\STM32_BlueNRG\SimpleBlueNRG_HCI\includes\compiler.h
-.\objects\main.o: Src\audio_bluetooth_service.h

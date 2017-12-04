@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "sensor_service.h": "c",
+        "iterator": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "vector": "cpp"
+    }
+}

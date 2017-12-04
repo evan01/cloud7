@@ -114,6 +114,7 @@ typedef struct {
 /** @addtogroup SENSOR_SERVICE_Exported_Functions
  *  @{
  */
+initializeAudioService(void);
 tBleStatus Add_Acc_Service(void);
 tBleStatus Acc_Update(AxesRaw_t *data);
 tBleStatus Add_Environmental_Sensor_Service(void);

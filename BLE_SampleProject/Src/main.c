@@ -26,7 +26,7 @@
  */
 /* Private defines -----------------------------------------------------------*/
 #define BDADDR_SIZE 6
-
+int counter = 0;
 /**
  * @}
  */
@@ -180,6 +180,7 @@ void initializeEverything()
 }
 
 void audioService(void){
+	HAL_Delay(2000);
 	static uint8_t value = 0;
 	
 	if(value > 20){
@@ -191,20 +192,18 @@ void audioService(void){
 		setConnectable();
 		set_connectable = FALSE;
 	}
-	Sample_Characteristic_Update(value);
+	
+	if(connected){
+		Sample_Characteristic_Update(value);
+	}
+	
 }
 
 int main(void)
 {
   initializeEverything();
-	
-  int counter = 0;
   while (1)
   {
-    if (!counter)
-    {
-      counter++;
-    }
 	audioService();
     HCI_Process();
   }

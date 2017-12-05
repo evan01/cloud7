@@ -416,11 +416,6 @@
               <FilePath>.\Src\fput_debug.c</FilePath>
             </File>
             <File>
-              <FileName>sensor_service.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Inc\sensor_service.h</FilePath>
-            </File>
-            <File>
               <FileName>sample_service.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\sample_service.c</FilePath>

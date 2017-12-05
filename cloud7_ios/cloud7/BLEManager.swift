@@ -18,4 +18,10 @@ class BLEManager {
         self.handler = BLEHandler()
         self.manager = CBCentralManager(delegate: self.handler, queue: DispatchQueue.main)
     }
+    
+    func restartBluetooth(){
+        self.manager.stopScan()
+        self.handler.discoveredPeripherals = [String]()
+        self.manager.scanForPeripherals(withServices: nil, options: nil)
+    }
 }

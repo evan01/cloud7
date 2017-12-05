@@ -1,0 +1,26 @@
+--cpu=Cortex-M4.fp
+"nucleo_usart\stm32f4xx_it.o"
+"nucleo_usart\main.o"
+"nucleo_usart\stm32f4xx_hal_msp.o"
+"nucleo_usart\fput_debug.o"
+"nucleo_usart\stm32f4xx_hal_cortex.o"
+"nucleo_usart\stm32f4xx_hal_dma_ex.o"
+"nucleo_usart\stm32f4xx_hal_pwr_ex.o"
+"nucleo_usart\stm32f4xx_hal_gpio.o"
+"nucleo_usart\stm32f4xx_hal_tim.o"
+"nucleo_usart\stm32f4xx_hal_tim_ex.o"
+"nucleo_usart\stm32f4xx_hal_flash_ex.o"
+"nucleo_usart\stm32f4xx_hal_pwr.o"
+"nucleo_usart\stm32f4xx_hal.o"
+"nucleo_usart\stm32f4xx_hal_flash.o"
+"nucleo_usart\stm32f4xx_hal_flash_ramfunc.o"
+"nucleo_usart\stm32f4xx_hal_uart.o"
+"nucleo_usart\stm32f4xx_hal_dma.o"
+"nucleo_usart\stm32f4xx_hal_rcc.o"
+"nucleo_usart\stm32f4xx_hal_rcc_ex.o"
+"nucleo_usart\system_stm32f4xx.o"
+"nucleo_usart\startup_stm32f401xe.o"
+--library_type=microlib --strict --scatter "nucleo_USART\nucleo_USART.sct"
+--diag_suppress=L6329 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "nucleo_USART.map" -o nucleo_USART\nucleo_USART.axf

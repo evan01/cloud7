@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\Objects\BLE_SampleProject.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\BLE_SampleProject.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Mon Dec 04 17:02:53 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Tue Dec 05 21:49:01 2017
 <BR><P>
-<H3>Maximum Stack Usage =       1048 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =       1056 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 __rt_entry_main &rArr; main &rArr; initializeEverything &rArr; getBlueNRGVersion &rArr; HCI_Process &rArr; HCI_Event_CB &rArr; Read_Request_CB &rArr; Sample_Characteristic_Update &rArr; aci_gatt_update_char_value &rArr; hci_send_req &rArr; hci_send_cmd &rArr; hci_write &rArr; Hal_Write_Serial &rArr; BlueNRG_SPI_Write &rArr; HAL_SPI_TransmitReceive &rArr; SPI_WaitOnFlagUntilTimeout
 <P>
@@ -255,7 +255,7 @@ Global Symbols
 <P><STRONG><a name="[119]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[65]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1048 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 1056 + Unknown Stack Size
 <LI>Call Chain = __rt_entry_main &rArr; main &rArr; initializeEverything &rArr; getBlueNRGVersion &rArr; HCI_Process &rArr; HCI_Event_CB &rArr; Read_Request_CB &rArr; Sample_Characteristic_Update &rArr; aci_gatt_update_char_value &rArr; hci_send_req &rArr; hci_send_cmd &rArr; hci_write &rArr; Hal_Write_Serial &rArr; BlueNRG_SPI_Write &rArr; HAL_SPI_TransmitReceive &rArr; SPI_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -918,8 +918,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTMEM
 </UL>
 
-<P><STRONG><a name="[a0]"></a>Add_Sample_Service</STRONG> (Thumb, 300 bytes, Stack size 48 bytes, sample_service.o(i.Add_Sample_Service))
-<BR><BR>[Stack]<UL><LI>Max Depth = 704 + Unknown Stack Size
+<P><STRONG><a name="[a0]"></a>Add_Sample_Service</STRONG> (Thumb, 320 bytes, Stack size 56 bytes, sample_service.o(i.Add_Sample_Service))
+<BR><BR>[Stack]<UL><LI>Max Depth = 712 + Unknown Stack Size
 <LI>Call Chain = Add_Sample_Service &rArr; aci_gatt_add_char &rArr; hci_send_req &rArr; hci_send_cmd &rArr; hci_write &rArr; Hal_Write_Serial &rArr; BlueNRG_SPI_Write &rArr; HAL_SPI_TransmitReceive &rArr; SPI_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aci_gatt_add_serv
@@ -1234,7 +1234,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[cb]"></a>HCI_Event_CB</STRONG> (Thumb, 106 bytes, Stack size 24 bytes, sample_service.o(i.HCI_Event_CB))
-<BR><BR>[Stack]<UL><LI>Max Depth = 792 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 800 + Unknown Stack Size
 <LI>Call Chain = HCI_Event_CB &rArr; Read_Request_CB &rArr; Sample_Characteristic_Update &rArr; aci_gatt_update_char_value &rArr; hci_send_req &rArr; hci_send_cmd &rArr; hci_write &rArr; Hal_Write_Serial &rArr; BlueNRG_SPI_Write &rArr; HAL_SPI_TransmitReceive &rArr; SPI_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Read_Request_CB
@@ -1269,7 +1269,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[d5]"></a>HCI_Process</STRONG> (Thumb, 116 bytes, Stack size 144 bytes, hci.o(i.HCI_Process))
-<BR><BR>[Stack]<UL><LI>Max Depth = 936 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 944 + Unknown Stack Size
 <LI>Call Chain = HCI_Process &rArr; HCI_Event_CB &rArr; Read_Request_CB &rArr; Sample_Characteristic_Update &rArr; aci_gatt_update_char_value &rArr; hci_send_req &rArr; hci_send_cmd &rArr; hci_write &rArr; Hal_Write_Serial &rArr; BlueNRG_SPI_Write &rArr; HAL_SPI_TransmitReceive &rArr; SPI_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HCI_Event_CB
@@ -1359,7 +1359,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f401xe.o(RESET)
 </UL>
 <P><STRONG><a name="[cc]"></a>Read_Request_CB</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, sample_service.o(i.Read_Request_CB))
-<BR><BR>[Stack]<UL><LI>Max Depth = 768 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 776 + Unknown Stack Size
 <LI>Call Chain = Read_Request_CB &rArr; Sample_Characteristic_Update &rArr; aci_gatt_update_char_value &rArr; hci_send_req &rArr; hci_send_cmd &rArr; hci_write &rArr; Hal_Write_Serial &rArr; BlueNRG_SPI_Write &rArr; HAL_SPI_TransmitReceive &rArr; SPI_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aci_gatt_allow_read
@@ -1372,8 +1372,8 @@ Global Symbols
 <P><STRONG><a name="[e]"></a>SVC_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32xx_it.o(i.SVC_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f401xe.o(RESET)
 </UL>
-<P><STRONG><a name="[dc]"></a>Sample_Characteristic_Update</STRONG> (Thumb, 44 bytes, Stack size 24 bytes, sample_service.o(i.Sample_Characteristic_Update))
-<BR><BR>[Stack]<UL><LI>Max Depth = 760 + Unknown Stack Size
+<P><STRONG><a name="[dc]"></a>Sample_Characteristic_Update</STRONG> (Thumb, 140 bytes, Stack size 32 bytes, sample_service.o(i.Sample_Characteristic_Update))
+<BR><BR>[Stack]<UL><LI>Max Depth = 768 + Unknown Stack Size
 <LI>Call Chain = Sample_Characteristic_Update &rArr; aci_gatt_update_char_value &rArr; hci_send_req &rArr; hci_send_cmd &rArr; hci_write &rArr; Hal_Write_Serial &rArr; BlueNRG_SPI_Write &rArr; HAL_SPI_TransmitReceive &rArr; SPI_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aci_gatt_update_char_value
@@ -1574,7 +1574,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[eb]"></a>audioService</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, main.o(i.audioService))
-<BR><BR>[Stack]<UL><LI>Max Depth = 768 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 776 + Unknown Stack Size
 <LI>Call Chain = audioService &rArr; Sample_Characteristic_Update &rArr; aci_gatt_update_char_value &rArr; hci_send_req &rArr; hci_send_cmd &rArr; hci_write &rArr; Hal_Write_Serial &rArr; BlueNRG_SPI_Write &rArr; HAL_SPI_TransmitReceive &rArr; SPI_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setConnectable
@@ -1590,7 +1590,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> _printf_char_file.o(.text)
 </UL>
 <P><STRONG><a name="[ed]"></a>getBlueNRGVersion</STRONG> (Thumb, 86 bytes, Stack size 40 bytes, bluenrg_utils_small.o(i.getBlueNRGVersion))
-<BR><BR>[Stack]<UL><LI>Max Depth = 976 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 984 + Unknown Stack Size
 <LI>Call Chain = getBlueNRGVersion &rArr; HCI_Process &rArr; HCI_Event_CB &rArr; Read_Request_CB &rArr; Sample_Characteristic_Update &rArr; aci_gatt_update_char_value &rArr; hci_send_req &rArr; hci_send_cmd &rArr; hci_write &rArr; Hal_Write_Serial &rArr; BlueNRG_SPI_Write &rArr; HAL_SPI_TransmitReceive &rArr; SPI_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HCI_Process
@@ -1670,7 +1670,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[f3]"></a>initializeEverything</STRONG> (Thumb, 268 bytes, Stack size 72 bytes, main.o(i.initializeEverything))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1048 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 1056 + Unknown Stack Size
 <LI>Call Chain = initializeEverything &rArr; getBlueNRGVersion &rArr; HCI_Process &rArr; HCI_Event_CB &rArr; Read_Request_CB &rArr; Sample_Characteristic_Update &rArr; aci_gatt_update_char_value &rArr; hci_send_req &rArr; hci_send_cmd &rArr; hci_write &rArr; Hal_Write_Serial &rArr; BlueNRG_SPI_Write &rArr; HAL_SPI_TransmitReceive &rArr; SPI_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getBlueNRGVersion
@@ -1759,7 +1759,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[66]"></a>main</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1048 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 1056 + Unknown Stack Size
 <LI>Call Chain = main &rArr; initializeEverything &rArr; getBlueNRGVersion &rArr; HCI_Process &rArr; HCI_Event_CB &rArr; Read_Request_CB &rArr; Sample_Characteristic_Update &rArr; aci_gatt_update_char_value &rArr; hci_send_req &rArr; hci_send_cmd &rArr; hci_write &rArr; Hal_Write_Serial &rArr; BlueNRG_SPI_Write &rArr; HAL_SPI_TransmitReceive &rArr; SPI_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HCI_Process

@@ -10,11 +10,16 @@ import UIKit
 import CoreBluetooth
 
 class BLEHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate{
+    
+    //Audio handler delegate
+    var audio_handler: AudioProcess
+    
+    //Peripherals that we've connected to
     var discoveredPeripherals = [String]()
     var connectedPeripherals = [CBPeripheral]()
 
-    
-    let DEVICE_UUID = CBUUID(string: "123A")
+    var audioData = [Data]()
+    let DEVICE_UUID = CBUUID(string: "303CBFB6-C92A-30A3-5959-5F3845E09EE4")
     let DEVICE_NAME = "Cloud7"
     let SERVICE_UUID = CBUUID(string: "02366E80-CF3A-11E1-9AB4-0002A5D5C51B")
     let CHAR_UUID = CBUUID(string: "E23E78A0-CF4A-11E1-8FFC-0002A5D5C51B")
@@ -22,17 +27,15 @@ class BLEHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate{
     var discovered = false;
     
     override init() {
-        super.init()
+        self.audio_handler = AudioProcess()
     }
     
-    //The following functions happen in a sequence... if everything works.
-    //First make sure that the bluetooth is on, then scan
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch (central.state) {
         case .poweredOn:
             print("powered on")
-//            central.scanForPeripherals(withServices: [SERVICE_UUID], options: nil)
-            central.scanForPeripherals(withServices: nil, options: nil)
+            central.scanForPeripherals(withServices: [SERVICE_UUID], options: nil)
+//            central.scanForPeripherals(withServices: nil, options: nil)
         case .unsupported:
             print("unsupported")
         case .unauthorized:
@@ -47,33 +50,27 @@ class BLEHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate{
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi: NSNumber) {
-        
-        let name = peripheral.name ??  "default"
-        
-        if(name == DEVICE_NAME){
-            print("\n\n\nDISCOVERED THE BLUETOOTH DEVICE WE WANTED\n")
-            print(rssi)
-            print(advertisementData)
-            print(peripheral.name!)
-            //Then lets connect to it
-            print("Discovered the target device! Conecting...")
-            for i in advertisementData{
-                print(i)
+        let name = peripheral.name ??  "default";
+        let id = peripheral.identifier.uuidString
+
+        if (((advertisementData as NSDictionary).value(forKey: "kCBAdvDataLocalName")) != nil) {
+            let peripheralLocalName_advertisement = ((advertisementData as NSDictionary).value(forKey: "kCBAdvDataLocalName")) as? String
+            if(id == DEVICE_UUID.uuidString && peripheralLocalName_advertisement == "Cloud7!!"){
+                print("Discovered the target device! Conecting...")
+                print("\n\nNAME: \(name)\nDESC\(peripheral.debugDescription)\nADDATA:\(advertisementData.description)\nDEVUUID:\(peripheral.identifier.uuidString)\n");
+                central.stopScan()
+                central.connect(peripheral, options: nil)
+                self.connectedPeripherals.append(peripheral)
+            }else{
+                if(!self.discoveredPeripherals.contains(name)){
+                    print("Discovered Peripheral: " + name)
+                    self.discoveredPeripherals.append(name)
+                }
             }
-            print(advertisementData.debugDescription);
-            central.stopScan()
-            central.connect(peripheral, options: nil)
             
-            self.connectedPeripherals.append(peripheral)
-            peripheral.discoverServices(nil)
-        }else{
-//            self.discovered
-            if(!self.discoveredPeripherals.contains(name)){
-                print("Discovered Peripheral: " + name + "\n")
-                self.discoveredPeripherals.append(name)
-            }
         }
-//        central.connect(self.connectedPeripheral, options: nil)
+        
+        
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -88,28 +85,35 @@ class BLEHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate{
         for service in peripheral.services! {
             let s = service as CBService
             print(s.uuid.uuidString)
-            if s.uuid == SERVICE_UUID{
-                peripheral.discoverCharacteristics(nil, for: s)
-            }
+            peripheral.discoverCharacteristics(nil, for: s)
         }
     }
     
     //Notify when we have a new set of data coming in.
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         print("Discovering Characteristics")
-
         for char in service.characteristics! {
             let c = char as CBCharacteristic
-            if c.uuid == CHAR_UUID {
-                peripheral.setNotifyValue(true, for: c)
-            }
+            peripheral.setNotifyValue(true, for: c)
         }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        print("Raw Value: \(characteristic.properties.rawValue)")
-        
+        //This gets called when we have new data coming into the system
+        let array = characteristic.value?.withUnsafeBytes {
+            [UInt32](UnsafeBufferPointer(start: $0, count: (characteristic.value?.count)!))
+        }
+        self.audio_handler.newAudioData(data: array!) //Send this data to our audio handler
     }
     
-    
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        central.scanForPeripherals(withServices: nil, options: nil)
+    }
+
 }
+
+protocol BLEHandler_NewAudioDelegate {
+    func newAudioData(data:[UInt32])
+}
+
+    

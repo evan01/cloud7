@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0722FB661FCC78530007A827 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0722FB651FCC78530007A827 /* ExternalAccessory.framework */; };
+		072533021FD626D0001C0A01 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072533011FD626D0001C0A01 /* Firebase.swift */; };
 		074EE6651FC5DE7800EDD403 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074EE6641FC5DE7800EDD403 /* AppDelegate.swift */; };
 		074EE6671FC5DE7800EDD403 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074EE6661FC5DE7800EDD403 /* ViewController.swift */; };
 		074EE66A1FC5DE7800EDD403 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 074EE6681FC5DE7800EDD403 /* Main.storyboard */; };
 		074EE66C1FC5DE7800EDD403 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 074EE66B1FC5DE7800EDD403 /* Assets.xcassets */; };
 		074EE66F1FC5DE7800EDD403 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 074EE66D1FC5DE7800EDD403 /* LaunchScreen.storyboard */; };
-		0752AE581FCE31A10023BB1B /* BLEPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0752AE571FCE31A10023BB1B /* BLEPeripheral.swift */; };
+		077E368B1FD6538B00D92A77 /* AudioProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E368A1FD6538B00D92A77 /* AudioProcess.swift */; };
 		079D8DD61FCDC0C100F0A965 /* BLEHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079D8DD51FCDC0C100F0A965 /* BLEHandler.swift */; };
 		079D8DD81FCDC0EA00F0A965 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079D8DD71FCDC0EA00F0A965 /* BLEManager.swift */; };
 		07D9756E1FCB972C00528393 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07D9756D1FCB972C00528393 /* GoogleService-Info.plist */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		0722FB651FCC78530007A827 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		0722FB671FCC78530007A827 /* cloud7.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = cloud7.entitlements; sourceTree = "<group>"; };
+		072533011FD626D0001C0A01 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		074EE6611FC5DE7800EDD403 /* cloud7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cloud7.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		074EE6641FC5DE7800EDD403 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		074EE6661FC5DE7800EDD403 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -30,7 +32,7 @@
 		074EE66B1FC5DE7800EDD403 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		074EE66E1FC5DE7800EDD403 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		074EE6701FC5DE7800EDD403 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0752AE571FCE31A10023BB1B /* BLEPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEPeripheral.swift; sourceTree = "<group>"; };
+		077E368A1FD6538B00D92A77 /* AudioProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioProcess.swift; sourceTree = "<group>"; };
 		079D8DD51FCDC0C100F0A965 /* BLEHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEHandler.swift; sourceTree = "<group>"; };
 		079D8DD71FCDC0EA00F0A965 /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
 		079E34601FCE02EF00E1AD1E /* BluetoothKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BluetoothKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,15 +79,16 @@
 			children = (
 				0722FB671FCC78530007A827 /* cloud7.entitlements */,
 				074EE6641FC5DE7800EDD403 /* AppDelegate.swift */,
-				074EE6661FC5DE7800EDD403 /* ViewController.swift */,
 				074EE6681FC5DE7800EDD403 /* Main.storyboard */,
 				074EE66B1FC5DE7800EDD403 /* Assets.xcassets */,
 				074EE66D1FC5DE7800EDD403 /* LaunchScreen.storyboard */,
 				074EE6701FC5DE7800EDD403 /* Info.plist */,
 				07D9756D1FCB972C00528393 /* GoogleService-Info.plist */,
+				074EE6661FC5DE7800EDD403 /* ViewController.swift */,
 				079D8DD51FCDC0C100F0A965 /* BLEHandler.swift */,
 				079D8DD71FCDC0EA00F0A965 /* BLEManager.swift */,
-				0752AE571FCE31A10023BB1B /* BLEPeripheral.swift */,
+				072533011FD626D0001C0A01 /* Firebase.swift */,
+				077E368A1FD6538B00D92A77 /* AudioProcess.swift */,
 			);
 			path = cloud7;
 			sourceTree = "<group>";
@@ -265,11 +268,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				072533021FD626D0001C0A01 /* Firebase.swift in Sources */,
 				074EE6671FC5DE7800EDD403 /* ViewController.swift in Sources */,
+				077E368B1FD6538B00D92A77 /* AudioProcess.swift in Sources */,
 				079D8DD81FCDC0EA00F0A965 /* BLEManager.swift in Sources */,
 				079D8DD61FCDC0C100F0A965 /* BLEHandler.swift in Sources */,
 				074EE6651FC5DE7800EDD403 /* AppDelegate.swift in Sources */,
-				0752AE581FCE31A10023BB1B /* BLEPeripheral.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

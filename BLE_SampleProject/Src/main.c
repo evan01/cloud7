@@ -180,7 +180,7 @@ void initializeEverything()
 }
 
 void audioService(void){
-	HAL_Delay(2000);
+	HAL_Delay(1000);
 	static uint8_t value = 0;
 	
 	if(value > 20){
@@ -188,13 +188,17 @@ void audioService(void){
 	} else {
 		value++;
 	}
+	static uint8_t values[10] = {1,2,3,4,5,6,7,8,9,10}; 
 	if (set_connectable){
 		setConnectable();
 		set_connectable = FALSE;
 	}
-	
+
 	if(connected){
-		Sample_Characteristic_Update(value);
+	
+				Sample_Characteristic_Update(value);
+
+		
 	}
 	
 }

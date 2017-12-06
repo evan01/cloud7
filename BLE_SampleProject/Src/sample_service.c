@@ -18,8 +18,8 @@ do {\
 }while(0)
 
 
-#define COPY_SAMPLE_SERVICE_UUID(uuid_struct)			COPY_UUID_128(uuid_struct,0x01,0x36,0x6e,0x80, 0xcf,0x3a, 0x11,0xe1, 0x9a,0xb4, 0x00,0x02,0xa5,0xd5,0xc5,0x1b)
-#define COPY_SAMPLE_CHAR_UUID(uuid_struct)				COPY_UUID_128(uuid_struct,0xe1,0x3e,0x78,0xa0, 0xcf,0x4a, 0x11,0xe1, 0x8f,0xfc, 0x00,0x02,0xa5,0xd5,0xc5,0x1b)
+#define COPY_SAMPLE_SERVICE_UUID(uuid_struct)			COPY_UUID_128(uuid_struct,0x02,0x36,0x6e,0x80, 0xcf,0x3a, 0x11,0xe1, 0x9a,0xb4, 0x00,0x02,0xa5,0xd5,0xc5,0x1b)
+#define COPY_SAMPLE_CHAR_UUID(uuid_struct)				COPY_UUID_128(uuid_struct,0xe2,0x3e,0x78,0xa0, 0xcf,0x4a, 0x11,0xe1, 0x8f,0xfc, 0x00,0x02,0xa5,0xd5,0xc5,0x1b)
 
 /* Store Value into a buffer in Little Endian Format */
 #define STORE_LE_16(buf, val)    ( ((buf)[0] =  (uint8_t) (val)    ) , \
@@ -30,7 +30,9 @@ tBleStatus Add_Sample_Service(void)
   tBleStatus ret;
 
   uint8_t uuid[16];
-  
+  for(int i = 0; i < 16; i++){
+		printf("%d ", uuid[i]);
+	}
   COPY_SAMPLE_SERVICE_UUID(uuid);
   ret = aci_gatt_add_serv(UUID_TYPE_128, uuid, PRIMARY_SERVICE, 7, &sampleServHandle);
   if (ret != BLE_STATUS_SUCCESS) goto fail;    
@@ -61,8 +63,10 @@ fail:
 tBleStatus Sample_Characteristic_Update(uint8_t value)
 {  
   tBleStatus ret;
-	uint8_t buf[1] = { value };
-  ret = aci_gatt_update_char_value(sampleServHandle, sampleCharHandle, 0, 1, buf);
+	printf("value %d\n", value);
+	uint8_t buf[10] = { value , value+3, value+6, value+10, value+16, value+25, value+3, value+10, value+5, value+7};
+	uint8_t buf_one[1] = {value};
+  ret = aci_gatt_update_char_value(sampleServHandle, sampleCharHandle, 0, 10, buf);
 	
   if (ret != BLE_STATUS_SUCCESS){
     PRINTF("Error while updating sample characteristic.\n") ;

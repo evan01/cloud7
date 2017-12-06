@@ -1,0 +1,60 @@
+[debug] [2017-12-06T03:01:30.556Z] ----------------------------------------------------------------------
+[debug] [2017-12-06T03:01:30.558Z] Command:       /usr/local/Cellar/node/8.9.1/bin/node /Users/eknox/.npm-packages/bin/firebase serve
+[debug] [2017-12-06T03:01:30.559Z] CLI Version:   3.15.3
+[debug] [2017-12-06T03:01:30.559Z] Platform:      darwin
+[debug] [2017-12-06T03:01:30.559Z] Node Version:  v8.9.1
+[debug] [2017-12-06T03:01:30.559Z] Time:          Tue Dec 05 2017 22:01:30 GMT-0500 (EST)
+[debug] [2017-12-06T03:01:30.559Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-12-06T03:01:30.569Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-12-06T03:01:30.569Z] > authorizing via signed-in user
+[debug] [2017-12-06T03:01:30.570Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/microp-audio  
+ Tue Dec 05 2017 22:01:30 GMT-0500 (EST)
+[debug] [2017-12-06T03:01:32.000Z] <<< HTTP RESPONSE 200
+[debug] [2017-12-06T03:01:32.001Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/microp-audio/tokens  
+ Tue Dec 05 2017 22:01:32 GMT-0500 (EST)
+[debug] [2017-12-06T03:01:32.411Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/eknox/ws/mp/cloud7/cloud7_ios'...
+[info] 
+[debug] [2017-12-06T03:01:32.414Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/microp-audio  
+ Tue Dec 05 2017 22:01:32 GMT-0500 (EST)
+[debug] [2017-12-06T03:01:32.821Z] <<< HTTP RESPONSE 200
+[debug] [2017-12-06T03:01:32.821Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/291544136007/clients/_:getWebAppConfig  
+ Tue Dec 05 2017 22:01:32 GMT-0500 (EST)
+[debug] [2017-12-06T03:01:33.039Z] <<< HTTP RESPONSE 200
+[debug] [2017-12-06T03:01:33.053Z] TypeError: Cannot read property 'public' of undefined
+    at Server.<anonymous> (/Users/eknox/.npm-packages/lib/node_modules/firebase-tools/lib/serve/hosting.js:34:18)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:106:13)
+    at Server.emit (events.js:208:7)
+    at emitListeningNT (net.js:1378:10)
+    at _combinedTickCallback (internal/process/next_tick.js:135:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:218:9)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2017-12-06T03:03:59.327Z] ----------------------------------------------------------------------
+[debug] [2017-12-06T03:03:59.329Z] Command:       /usr/local/Cellar/node/8.9.1/bin/node /Users/eknox/.npm-packages/bin/firebase experimental:functions:shell
+[debug] [2017-12-06T03:03:59.330Z] CLI Version:   3.15.3
+[debug] [2017-12-06T03:03:59.330Z] Platform:      darwin
+[debug] [2017-12-06T03:03:59.330Z] Node Version:  v8.9.1
+[debug] [2017-12-06T03:03:59.330Z] Time:          Tue Dec 05 2017 22:03:59 GMT-0500 (EST)
+[debug] [2017-12-06T03:03:59.330Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-12-06T03:03:59.339Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-12-06T03:03:59.339Z] > authorizing via signed-in user
+[debug] [2017-12-06T03:03:59.341Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/microp-audio  
+ Tue Dec 05 2017 22:03:59 GMT-0500 (EST)
+[debug] [2017-12-06T03:03:59.703Z] <<< HTTP RESPONSE 200
+[debug] [2017-12-06T03:03:59.704Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/microp-audio/tokens  
+ Tue Dec 05 2017 22:03:59 GMT-0500 (EST)
+[debug] [2017-12-06T03:03:59.989Z] <<< HTTP RESPONSE 200
+[info] i  functions: Preparing to emulate functions.
+[debug] [2017-12-06T03:04:00.415Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/microp-audio  
+ Tue Dec 05 2017 22:04:00 GMT-0500 (EST)
+[debug] [2017-12-06T03:04:00.415Z] >>> HTTP REQUEST GET https://apikeys.googleapis.com/v1/projects/microp-audio/apiKeys  
+ Tue Dec 05 2017 22:04:00 GMT-0500 (EST)
+[debug] [2017-12-06T03:04:00.701Z] <<< HTTP RESPONSE 200
+[debug] [2017-12-06T03:04:00.749Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: uploadAudio
+[info] ✔  functions: processAudio

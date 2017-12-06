@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0722FB661FCC78530007A827 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0722FB651FCC78530007A827 /* ExternalAccessory.framework */; };
 		072533021FD626D0001C0A01 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072533011FD626D0001C0A01 /* Firebase.swift */; };
+		072E2EF91FD86BE80090D6A5 /* array-format.txt in Resources */ = {isa = PBXBuildFile; fileRef = 072E2EF81FD86BE80090D6A5 /* array-format.txt */; };
+		072E2EFD1FD884C40090D6A5 /* TESTVALUES.txt in Resources */ = {isa = PBXBuildFile; fileRef = 072E2EFC1FD884C40090D6A5 /* TESTVALUES.txt */; };
 		074EE6651FC5DE7800EDD403 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074EE6641FC5DE7800EDD403 /* AppDelegate.swift */; };
 		074EE6671FC5DE7800EDD403 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074EE6661FC5DE7800EDD403 /* ViewController.swift */; };
 		074EE66A1FC5DE7800EDD403 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 074EE6681FC5DE7800EDD403 /* Main.storyboard */; };
@@ -17,6 +19,7 @@
 		077E368B1FD6538B00D92A77 /* AudioProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E368A1FD6538B00D92A77 /* AudioProcess.swift */; };
 		079D8DD61FCDC0C100F0A965 /* BLEHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079D8DD51FCDC0C100F0A965 /* BLEHandler.swift */; };
 		079D8DD81FCDC0EA00F0A965 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079D8DD71FCDC0EA00F0A965 /* BLEManager.swift */; };
+		07BCCC951FD79A4E005B560C /* 1234_uint8.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07BCCC941FD79A4E005B560C /* 1234_uint8.wav */; };
 		07D9756E1FCB972C00528393 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07D9756D1FCB972C00528393 /* GoogleService-Info.plist */; };
 		881452B547C01198A519E10C /* Pods_cloud7.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AECF55F662079406B9EC4DBB /* Pods_cloud7.framework */; };
 /* End PBXBuildFile section */
@@ -25,6 +28,8 @@
 		0722FB651FCC78530007A827 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		0722FB671FCC78530007A827 /* cloud7.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = cloud7.entitlements; sourceTree = "<group>"; };
 		072533011FD626D0001C0A01 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
+		072E2EF81FD86BE80090D6A5 /* array-format.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "array-format.txt"; sourceTree = "<group>"; };
+		072E2EFC1FD884C40090D6A5 /* TESTVALUES.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TESTVALUES.txt; sourceTree = "<group>"; };
 		074EE6611FC5DE7800EDD403 /* cloud7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cloud7.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		074EE6641FC5DE7800EDD403 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		074EE6661FC5DE7800EDD403 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -36,6 +41,7 @@
 		079D8DD51FCDC0C100F0A965 /* BLEHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEHandler.swift; sourceTree = "<group>"; };
 		079D8DD71FCDC0EA00F0A965 /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
 		079E34601FCE02EF00E1AD1E /* BluetoothKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BluetoothKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		07BCCC941FD79A4E005B560C /* 1234_uint8.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 1234_uint8.wav; path = cloud7/1234_uint8.wav; sourceTree = "<group>"; };
 		07D9756C1FCB3CDE00528393 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		07D9756D1FCB972C00528393 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		107944A871264B4EBA2B2C52 /* Pods-cloud7.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloud7.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cloud7/Pods-cloud7.debug.xcconfig"; sourceTree = "<group>"; };
@@ -59,6 +65,9 @@
 		074EE6581FC5DE7800EDD403 = {
 			isa = PBXGroup;
 			children = (
+				072E2EFC1FD884C40090D6A5 /* TESTVALUES.txt */,
+				07BCCC941FD79A4E005B560C /* 1234_uint8.wav */,
+				072E2EF81FD86BE80090D6A5 /* array-format.txt */,
 				074EE6631FC5DE7800EDD403 /* cloud7 */,
 				074EE6621FC5DE7800EDD403 /* Products */,
 				07D9756B1FCB3CDE00528393 /* Frameworks */,
@@ -187,8 +196,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				074EE66F1FC5DE7800EDD403 /* LaunchScreen.storyboard in Resources */,
+				07BCCC951FD79A4E005B560C /* 1234_uint8.wav in Resources */,
 				07D9756E1FCB972C00528393 /* GoogleService-Info.plist in Resources */,
+				072E2EF91FD86BE80090D6A5 /* array-format.txt in Resources */,
 				074EE66C1FC5DE7800EDD403 /* Assets.xcassets in Resources */,
+				072E2EFD1FD884C40090D6A5 /* TESTVALUES.txt in Resources */,
 				074EE66A1FC5DE7800EDD403 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,7 +427,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M8824YVVEG;
 				INFOPLIST_FILE = cloud7/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.group7.cloud7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -433,7 +445,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M8824YVVEG;
 				INFOPLIST_FILE = cloud7/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.group7.cloud7;
 				PRODUCT_NAME = "$(TARGET_NAME)";

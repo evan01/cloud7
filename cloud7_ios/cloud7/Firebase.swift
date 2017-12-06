@@ -10,27 +10,31 @@ import UIKit
 import Firebase
 import FirebaseAuthUI
 import FirebaseGoogleAuthUI
+import AVKit
 
-class Firebase: Firebase_Delegate {
+class FirebaseUploader: Firebase_Delegate {
     
     //Firebase
     var ref: DatabaseReference!
+    var dataRef: Storage!
+    
     //Authentication, google
     let providers: [FUIAuthProvider] = [FUIGoogleAuth()]
     
     init() {
         //Firebase configuration
         self.ref = Database.database().reference()
+        self.dataRef = Storage.storage()
     }
     
-    func uploadToFirebase(data:String){
+    //This uploads the files data only to firebase
+    func uploadToFirebase(data: String){
         let email = "eknoxmobile@gmail.com"
         let password = "cloud7"
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             self.ref.child("audio").child("USER123").updateChildValues(["data2": data ]);
-            print("Uploaded data to database")
+            print("Uploaded raw data to cloud functions")
             do {
-                //Then read the return value...
                 sleep(8)
                 self.ref.child("audio").child("USER123").observeSingleEvent(of: .value, with: { (snapshot) in
                     // Get user value
@@ -39,12 +43,83 @@ class Firebase: Firebase_Delegate {
                     print("The return value was \(procVal)")
                 }) { (error) in
                     print(error.localizedDescription)
+                    print("Cloud function upload ERROR")
                 }
-                try Auth.auth().signOut()
-            } catch let signOutError as NSError {
-                print("Error signing out")
-                print(signOutError)
             }
+        }
+    }
+    
+    //This uploads the file to persistent storage in firebase
+    func uploadFileToFirebase(data: Data){
+        
+        let storageRef = self.dataRef.reference()
+        let email = "eknoxmobile@gmail.com"
+        let password = "cloud7"
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            let audioRef = storageRef.child("audio/recording.wav")
+            _ = audioRef.putData(data,metadata: nil) {
+                (metadata, error) in
+                guard metadata != nil else {
+                    print("Cloud storage upload ERROR")
+                    print(error ?? "error")
+                    return
+                }
+            }
+            do {
+                sleep(3)
+                self.ref.child("audio").child("USER123").observeSingleEvent(of: .value, with: { (snapshot) in
+                    // Get user value
+                    let value = snapshot.value as? NSDictionary
+                    let procVal = value?["return_value_translation"] as? String ?? ""
+                    print("The return value was \(procVal)")
+                }) { (error) in
+                    print(error.localizedDescription)
+                    print("Cloud function upload ERROR")
+                }
+            }
+        }
+        print("Uploaded audio file to cloud storage")
+    }
+    
+    
+    func uploadTestToFirebase() {
+        print("Uploading test data")
+        let a = AudioProcess()
+        let wavData = a.pmcWaveConverter(rawData: getTestData()) as Data
+//        let wavData = getTestData2()
+        uploadToFirebase(data: wavData.base64EncodedString())
+        sleep(2)
+        uploadFileToFirebase(data: wavData)
+        print("Data ready for upload")
+    }
+    
+    
+    func getTestData() -> [UInt8]{
+        do {
+            let textFile = Bundle.main.url(forResource: "TESTVALUES", withExtension: "txt")
+            let textFileString = try String(contentsOf: textFile!).replacingOccurrences(of: "\r\n", with: ",")
+            
+            // split the array by the ","
+            var stringArray = textFileString.components(separatedBy: ",")
+            stringArray.removeLast()
+            
+            // convert the array into uint array
+            return stringArray.map{ UInt8($0)!}
+
+        } catch {
+            print("error reading array")
+            return [1]
+        }
+    }
+    
+    func getTestData2() -> Data{
+        do {
+            let file = Bundle.main.url(forResource: "1234_uint8", withExtension: "wav")
+            let d = try Data(contentsOf: file!)
+            return d
+        } catch {
+            print("error reading array")
+            return Data(bytes: [1])
         }
     }
     

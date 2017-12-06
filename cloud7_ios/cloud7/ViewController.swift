@@ -25,26 +25,32 @@ class ViewController: UIViewController {
    
     //When you click the upload button... 
     @IBAction func upload(_ sender: Any) {
-        self.firebaseDelegate?.uploadToFirebase(data: "Evans default string")
+//        self.firebaseDelegate?.uploadToFirebase(data: "Evans default string")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Firebase configuration
-        self.firebaseDelegate = Firebase()
+        self.firebaseDelegate = FirebaseUploader()
         
         //Bluetooth configuration, this starts the bluetooth service...
         self.manager = BLEManager()
         
         //Wait for a completed audio notification
-        NotificationCenter.default.addObserver(self, selector: #selector(self.receiveProcessedAudioData), name: NSNotification.Name(rawValue: AUDIO_DONE_NOTIFICATION_KEY), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.receiveProcessedAudioData(_:)), name: NSNotification.Name(rawValue: AUDIO_DONE_NOTIFICATION_KEY), object: nil)
 
     }
     
     //This function gets called when we finally have all the data we want.
-    @objc func receiveProcessedAudioData(){
-        print("received the audio data")
+    @objc func receiveProcessedAudioData(_ notification:NSNotification){
+        print("Notified")
+//        print(notification.userInfo!["data"])
+        let data = notification.userInfo!["data"]
+        self.manager.manager.stopScan()
+        self.firebaseDelegate?.uploadToFirebase(data:data as! String)
+        
+        
     }
 
     //If we need to manually relaunch bluetooth
@@ -54,6 +60,7 @@ class ViewController: UIViewController {
             print("Scanning for new peripherals")
             self.manager.handler.discoveredPeripherals = [String]()
             self.manager.manager.scanForPeripherals(withServices: nil, options: nil)
+            self.manager.handler.audio_handler.resetAudio()
         }else{
             self.manager.restartBluetooth()
         }
@@ -69,10 +76,16 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-   
+    @IBAction func uploadTestAudio(_ sender: Any) {
+        self.firebaseDelegate?.uploadTestToFirebase()
+    }
+    
 }
 
 protocol Firebase_Delegate{
+//    func uploadToFirebase(data: Data)
     func uploadToFirebase(data: String)
+    
+    func uploadTestToFirebase()
 }
 

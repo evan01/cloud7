@@ -4,5 +4,10 @@
   "description": "An app that takes in bluetooth audio and posts to the cloud",
   "main": "index.js",
   "author": "Evan Knox",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/speech": "^0.11.0",
+    "firebase-admin": "^5.5.1",
+    "firebase-functions": "^0.7.3"
+  }
 }

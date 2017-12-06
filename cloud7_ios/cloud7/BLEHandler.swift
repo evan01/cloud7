@@ -35,7 +35,6 @@ class BLEHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate{
         case .poweredOn:
             print("powered on")
             central.scanForPeripherals(withServices: [SERVICE_UUID], options: nil)
-//            central.scanForPeripherals(withServices: nil, options: nil)
         case .unsupported:
             print("unsupported")
         case .unauthorized:
@@ -101,19 +100,21 @@ class BLEHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate{
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         //This gets called when we have new data coming into the system
         let array = characteristic.value?.withUnsafeBytes {
-            [UInt32](UnsafeBufferPointer(start: $0, count: (characteristic.value?.count)!))
-        }
+            [UInt8](UnsafeBufferPointer(start: $0, count: 20))
+        }        
         self.audio_handler.newAudioData(data: array!) //Send this data to our audio handler
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        print("Disconected...resetting audio data")
         central.scanForPeripherals(withServices: nil, options: nil)
+        self.audio_handler.resetAudio()
     }
 
 }
 
 protocol BLEHandler_NewAudioDelegate {
-    func newAudioData(data:[UInt32])
+    func newAudioData(data:[UInt8])
 }
 
     

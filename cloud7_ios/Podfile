@@ -11,4 +11,5 @@ target 'cloud7' do
     pod 'FirebaseUI/Auth'
     pod 'FirebaseUI/Google'
     pod 'FirebaseUI/Phone'
+    pod 'Firebase/Storage'
 end

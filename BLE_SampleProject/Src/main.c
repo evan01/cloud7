@@ -2,11 +2,10 @@
 #include "cube_hal.h"
 
 #include "osal.h"
-#include "sensor_service.h"
+#include "sample_service.h"
 #include "debug.h"
 #include "stm32_bluenrg_ble.h"
 #include "bluenrg_utils.h"
-#include "audio_bluetooth_service.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -27,7 +26,7 @@
  */
 /* Private defines -----------------------------------------------------------*/
 #define BDADDR_SIZE 6
-
+int counter = 0;
 /**
  * @}
  */
@@ -40,7 +39,6 @@
 /* Private variables ---------------------------------------------------------*/
 extern volatile uint8_t set_connectable;
 extern volatile int connected;
-extern AxesRaw_t axes_data;
 uint8_t bnrg_expansion_board = IDB04A1; /* at startup, suppose the X-NUCLEO-IDB04A1 is used */
 /**
  * @}
@@ -50,7 +48,6 @@ uint8_t bnrg_expansion_board = IDB04A1; /* at startup, suppose the X-NUCLEO-IDB0
  * @{
  */
 /* Private function prototypes -----------------------------------------------*/
-void User_Process(AxesRaw_t *p_axes);
 /**
  * @}
  */
@@ -59,7 +56,7 @@ void sendDataToIos()
 {
   //This is assuming we have all the data that we want to send
   int data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-  sendAudioData(data);
+  //sendAudioData(data);
 }
 
 void initializeEverything()
@@ -171,61 +168,44 @@ void initializeEverything()
 
   PRINTF("SERVER: BLE Stack Initialized\n");
 
-  ret = Add_Acc_Service();
+  ret = Add_Sample_Service();
 
   if (ret == BLE_STATUS_SUCCESS)
-    PRINTF("Acc service added successfully.\n");
+    PRINTF("Audio service added successfully.\n");
   else
     PRINTF("Error while adding Acc service.\n");
-
-  ret = Add_Environmental_Sensor_Service();
-
-  if (ret == BLE_STATUS_SUCCESS)
-    PRINTF("Environmental Sensor service added successfully.\n");
-  else
-    PRINTF("Error while adding Environmental Sensor service.\n");
-
-  #if NEW_SERVICES
-  /* Instantiate Timer Service with two characteristics:
-    * - seconds characteristic (Readable only)
-    * - minutes characteristics (Readable and Notifiable )
-    */
-  ret = Add_Time_Service();
-
-  if (ret == BLE_STATUS_SUCCESS)
-    PRINTF("Time service added successfully.\n");
-  else
-    PRINTF("Error while adding Time service.\n");
-
-  /* Instantiate LED Button Service with one characteristic:
-    * - LED characteristic (Readable and Writable)
-    */
-  ret = Add_LED_Service();
-
-  if (ret == BLE_STATUS_SUCCESS)
-    PRINTF("LED service added successfully.\n");
-  else
-    PRINTF("Error while adding LED service.\n");
-  #endif
 
   /* Set output power level */
   ret = aci_hal_set_tx_power_level(1, 4);
 }
 
+void audioService(void){
+	HAL_Delay(2000);
+	static uint8_t value = 0;
+	
+	if(value > 20){
+		value = 0;
+	} else {
+		value++;
+	}
+	if (set_connectable){
+		setConnectable();
+		set_connectable = FALSE;
+	}
+	
+	if(connected){
+		Sample_Characteristic_Update(value);
+	}
+	
+}
+
 int main(void)
 {
   initializeEverything();
-  initializeAudioService();
-  int counter = 0;
   while (1)
   {
-    if (!counter)
-    {
-      counter++;
-      sendDataToIos();
-    }
+	audioService();
     HCI_Process();
-    // User_Process(&axes_data);
   }
 }
 
@@ -236,33 +216,33 @@ int main(void)
  * @param  AxesRaw_t* p_axes
  * @retval None
  */
-void User_Process(AxesRaw_t *p_axes)
-{
-  if (set_connectable)
-  {
-    setConnectable();
-    set_connectable = FALSE;
-  }
+//void User_Process(AxesRaw_t *p_axes)
+//{
+//  if (set_connectable)
+//  {
+//    setConnectable();
+//    set_connectable = FALSE;
+//  }
 
-  /* Check if the user has pushed the button */
-  if (BSP_PB_GetState(BUTTON_KEY) == RESET)
-  {
-    while (BSP_PB_GetState(BUTTON_KEY) == RESET)
-      ;
+//  /* Check if the user has pushed the button */
+//  if (BSP_PB_GetState(BUTTON_KEY) == RESET)
+//  {
+//    while (BSP_PB_GetState(BUTTON_KEY) == RESET)
+//      ;
 
-    //BSP_LED_Toggle(LED2); //used for debugging (BSP_LED_Init() above must be also enabled)
+//    //BSP_LED_Toggle(LED2); //used for debugging (BSP_LED_Init() above must be also enabled)
 
-    if (connected)
-    {
-      /* Update acceleration data */
-      p_axes->AXIS_X += 1;
-      p_axes->AXIS_Y -= 1;
-      p_axes->AXIS_Z += 2;
-      PRINTF("ACC: X=%6d Y=%6d Z=%6d\r\n", p_axes->AXIS_X, p_axes->AXIS_Y, p_axes->AXIS_Z);
-      Acc_Update(p_axes);
-    }
-  }
-}
+//    if (connected)
+//    {
+//      /* Update acceleration data */
+//      p_axes->AXIS_X += 1;
+//      p_axes->AXIS_Y -= 1;
+//      p_axes->AXIS_Z += 2;
+//      PRINTF("ACC: X=%6d Y=%6d Z=%6d\r\n", p_axes->AXIS_X, p_axes->AXIS_Y, p_axes->AXIS_Z);
+//      Acc_Update(p_axes);
+//    }
+//  }
+//}
 
 /**
  * @}

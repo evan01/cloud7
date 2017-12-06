@@ -59,17 +59,18 @@
 /* USER CODE BEGIN PV */
 #define WINDOW_SIZE 10000
 #define RECORD_TIME 4000
-int audio_buffer[WINDOW_SIZE];
-int audio_buffer_2[WINDOW_SIZE];
-int audio_buffer_3[WINDOW_SIZE];
+//uint8_t audio_buffer[WINDOW_SIZE];
+//uint8_t audio_buffer_2[WINDOW_SIZE];
+//uint8_t audio_buffer_3[WINDOW_SIZE];
+uint8_t audio_buffer[40000];
 int record = 0;
 int counter = 0;
 int sending = 0;
 int receiving = 0;
-uint32_t adcVal;
+uint8_t adcVal;
 state_e next_state;
-char* bufftr="Hello!\n\r"; 
-uint8_t buffrec[5];
+char* bufftr="Hello"; 
+//uint8_t buffrec[10000];
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE END PV */
@@ -91,17 +92,22 @@ void SystemClock_Config(void);
 void readVoltage(){
 	//get an 8 bit adc value which has to be converted to decimal
 	adcVal = HAL_ADC_GetValue(&hadc2);
-	
+//	printf("out %d\n", adcVal);
+
 	if(state == RECORD){
-		printf("%d\n", adcVal);
-		if(counter < WINDOW_SIZE){
+					printf("%d\n", adcVal);
+
+//		if(counter < WINDOW_SIZE){
+//			audio_buffer[counter] = adcVal;
+//		}
+//		if(counter >= WINDOW_SIZE && counter < (2*WINDOW_SIZE)){
+//			audio_buffer_2[counter-WINDOW_SIZE] = adcVal;
+//		}
+//		if(counter >= (2*WINDOW_SIZE) && counter < (3*WINDOW_SIZE)){
+//			audio_buffer_3[counter-2*WINDOW_SIZE] = adcVal;
+//		}
+		if(counter < 40000){
 			audio_buffer[counter] = adcVal;
-		}
-		if(counter >= WINDOW_SIZE && counter < (2*WINDOW_SIZE)){
-			audio_buffer_2[counter-WINDOW_SIZE] = adcVal;
-		}
-		if(counter >= (2*WINDOW_SIZE) && counter < (3*WINDOW_SIZE)){
-			audio_buffer_3[counter-2*WINDOW_SIZE] = adcVal;
 		}
 
 	counter++;
@@ -122,7 +128,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef*htim) {
 					break;
 				case RECORD:
 					HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
-					readVoltage();
+//					readVoltage();
 					break;
 				case SEND:
 					HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
@@ -138,6 +144,18 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef*htim) {
 int8_t checkButton()
 {
 	return HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0);
+}
+
+void transmitInteger(uint8_t x){
+	char* str;
+	
+	str = malloc(16);
+  snprintf(str, 16, "%d", x);
+  printf  (", str is now: %s ", str);
+	HAL_UART_Transmit_IT(&huart2, (uint8_t *)str, 16); 
+	free(str);
+//	printf("\nFully:%s\n", value);
+  
 }
 
 /* USER CODE END 0 */
@@ -189,6 +207,7 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
+		
 		switch(state){
 			case SLEEP:
 				if(checkButton()){
@@ -206,18 +225,14 @@ int main(void)
 					next_state = RECORD;
 				}
 				break;
-			case SEND:
-				HAL_UART_Transmit_IT(&huart2, (uint8_t *)bufftr, 8); 
-				HAL_UART_Receive_IT(&huart2, buffrec, 5);
-				HAL_Delay(1000);
-				printf("Buffer: %s\n", buffrec);
-				next_state = RECEIVE;
-			
+			case SEND:				
+
+				HAL_UART_Transmit_IT(&huart2, (uint8_t *)audio_buffer, 40000); 
+				HAL_Delay(10000);
+				printf("DONE\n");
+				next_state = RECEIVE;	
 				break;
 			case RECEIVE:
-//				HAL_UART_Receive_IT(&huart2, buffrec, 5);
-//				printf("Buffer: %s\n", buffrec);
-
 				if(checkButton()){
 					next_state = RECORD;
 					counter = 0;

@@ -29,7 +29,7 @@ typedef int i32_t;
 
 
 tBleStatus Add_Sample_Service(void);
-tBleStatus Sample_Characteristic_Update(uint8_t value);
+tBleStatus Sample_Characteristic_Update(uint8_t* value);
 void       setConnectable(void);
 void       enableNotification(void);
 void       GAP_ConnectionComplete_CB(uint8_t addr[6], uint16_t handle);

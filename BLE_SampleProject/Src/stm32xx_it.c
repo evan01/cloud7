@@ -38,6 +38,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
+#include "stm32f4xx_hal.h"
 #include "stm32xx_it.h"
 #include "debug.h"
 
@@ -61,6 +62,8 @@ volatile uint32_t ms_counter = 0;
 volatile uint8_t button_event = 0;
 /* SPI handler declared in "main.c" file */
 extern SPI_HandleTypeDef SpiHandle;
+extern UART_HandleTypeDef huart6;
+
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -84,10 +87,13 @@ void NMI_Handler(void)
   */
 void HardFault_Handler(void)
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+	
+	printf("HardFault\n");
+//  /* Go to infinite loop when Hard Fault exception occurs */
+//  while (1)
+//  {
+//		
+//  }
 }
 
 /**
@@ -129,6 +135,16 @@ void SysTick_Handler(void)
   ms_counter++;
 }
 
+void USART6_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART6_IRQn 0 */
+
+  /* USER CODE END USART6_IRQn 0 */
+  HAL_UART_IRQHandler(&huart6);
+  /* USER CODE BEGIN USART6_IRQn 1 */
+
+  /* USER CODE END USART6_IRQn 1 */
+}
 
 /******************************************************************************/
 /*                 STM32L0xx Peripherals Interrupt Handlers                   */

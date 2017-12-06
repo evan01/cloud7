@@ -30,15 +30,12 @@ tBleStatus Add_Sample_Service(void)
   tBleStatus ret;
 
   uint8_t uuid[16];
-  for(int i = 0; i < 16; i++){
-		printf("%d ", uuid[i]);
-	}
   COPY_SAMPLE_SERVICE_UUID(uuid);
   ret = aci_gatt_add_serv(UUID_TYPE_128, uuid, PRIMARY_SERVICE, 7, &sampleServHandle);
   if (ret != BLE_STATUS_SUCCESS) goto fail;    
   
   COPY_SAMPLE_CHAR_UUID(uuid);  
-  ret =  aci_gatt_add_char(sampleServHandle, UUID_TYPE_128, uuid, 1,
+  ret =  aci_gatt_add_char(sampleServHandle, UUID_TYPE_128, uuid, 20,
                            CHAR_PROP_NOTIFY|CHAR_PROP_READ,
                            ATTR_PERMISSION_NONE,
                            GATT_NOTIFY_READ_REQ_AND_WAIT_FOR_APPL_RESP,
@@ -60,13 +57,10 @@ fail:
  * @param  Value to write in the characteristic
  * @retval Status
  */
-tBleStatus Sample_Characteristic_Update(uint8_t value)
+tBleStatus Sample_Characteristic_Update(uint8_t* value)
 {  
   tBleStatus ret;
-	printf("value %d\n", value);
-	uint8_t buf[10] = { value , value+3, value+6, value+10, value+16, value+25, value+3, value+10, value+5, value+7};
-	uint8_t buf_one[1] = {value};
-  ret = aci_gatt_update_char_value(sampleServHandle, sampleCharHandle, 0, 10, buf);
+  ret = aci_gatt_update_char_value(sampleServHandle, sampleCharHandle, 0, 20, value);
 	
   if (ret != BLE_STATUS_SUCCESS){
     PRINTF("Error while updating sample characteristic.\n") ;

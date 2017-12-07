@@ -11,6 +11,8 @@ const client = new speech.SpeechClient({
   projectId: projectId
 })
 
+var db = admin.database();
+
 //Takes our bluetooth data and adds it to the realtime firebase database
 exports.uploadAudio = functions.https.onRequest((req, res) => {
   const original = req.query.text;// Grab the text parameter. APIENDPOINT?text=whateveryouwant
@@ -19,47 +21,46 @@ exports.uploadAudio = functions.https.onRequest((req, res) => {
 
 // exports.writeAudio = functions.database.onWrite(('/audio/{pushId}/write'))
 
-// When new data is uploaded to the realtime database... then we process/return it.
-exports.processAudio = functions.database.ref('/audio/USER123/data2')
-    .onUpdate(event => {
-      const data = event.data.val();// Grab the current value of what was written to the Realtime Database.
-      console.log('Audio: '+ data);
+// // When new data is uploaded to the realtime database... then we process/return it.
+// exports.processAudio = functions.database.ref('/audio/USER123/data2')
+//     .onWrite(event => {
+//       const data = event.data.val();// Grab the current value of what was written to the Realtime Database.
+//       console.log('Audio: '+ data);
 
-      const config = {
-        encoding: 'LINEAR16',
-        sampleRateHertz: 8000,
-        languageCode: 'en-US'
-      }
+//       const config = {
+//         encoding: 'LINEAR16',
+//         sampleRateHertz: 8000,
+//         languageCode: 'en-US'
+//       }
 
-      const audio = {
-        content: data
-      }
+//       const audio = {
+//         content: data
+//       }
 
-      var request = {
-        config: config,
-        audio: audio,
-      }
+//       var request = {
+//         config: config,
+//         audio: audio,
+//       }
 
-      client.recognize(request)
-        .then(data => {
-          console.log("BASE 64 START")
-          const response = data[0];
-          const transcription = response.results
-            .map(result => result.alternatives[0].transcript)
-            .join('\n');
-          console.log(`Transcription: ${transcription}`);
-          console.log('Got something from cloud ^^')
-          console.log("BASE 64 END")
-        })
-        .catch(err => {
-          console.error(err);
-        });
-      const retVal = "Translation: "
-      return event.data.ref.parent.child('return_value').set(retVal).then(snapshot => {
-            res.redirect(303,snapshot.ref);
-      });
-
-});
+//       return transcript = client.recognize(request)
+//         .then(data => {
+//           console.log("BASE 64 START")
+//           const response = data[0];
+//           const transcription = response.results
+//             .map(result => result.alternatives[0].transcript)
+//             .join('\n');
+//           console.log(`Transcription: ${transcription}`);
+//           console.log('Got something from cloud ^^')
+//           console.log("BASE 64 END")
+//           return transcription
+//         }).then(()=>{
+//           // console.log("RETURN VALUE" + transcript);
+//           return event.data.ref.parent.child('return_value').set(transcript);
+//         })
+//         .catch(err => {
+//           console.error(err);
+//         });
+// });
 
     // This will get called when we upload our wav file to the cloud storage.
     exports.handleWaveFile = functions.storage.object().onChange(event => {
@@ -88,26 +89,22 @@ exports.processAudio = functions.database.ref('/audio/USER123/data2')
           audio: audio,
         }
 
-        var transcript = client.recognize(request)
+        return transcript = client.recognize(request)
         .then(data => {
           console.log("CLOUD BUCKET START")
+          console.log(data)
           const response = data[0];
           const transcription = response.results
             .map(result => result.alternatives[0].transcript)
             .join('\n');
           console.log(`Transcription: ${transcription}`);
           console.log("CLOUD BUCKET END")
-        })
-        
-       
-        //Then write to the database
-        var db = admin.database()
-        var ref = db.ref('/audio/USER123/cloudData')
-        ref.child.set({
-          audio: transcript
+          db.ref('audio/USER123').set({
+            t: transcript
+          });
+
+        }).catch(err => {
+          console.error(err);
         });
-
-        
-
         
     });

@@ -18,32 +18,26 @@ class AudioProcess: NSObject, BLEHandler_NewAudioDelegate {
     //This gets called from BLEHandler when a new set of data comes into the system
     func newAudioData(data: [UInt8]) {
         count += 1
-        print("COUNT: \(count), DATA: \(data)")
-        for d in data{
-           audioData.append(d)
+        if(count < 2000){
+            print("COUNT: \(count), DATA: \(data)")
+            for d in data{
+                audioData.append(d)
+            }
+            
+            //heres where things get interesting, basically depending on the data send information to view controller...
+            //Add this data to the AudioProcessClass?
         }
-        
-        //heres where things get interesting, basically depending on the data send information to view controller...
-        //Add this data to the AudioProcessClass?
-        if (count > 1999){
+      
+        if (count == 1999){
             //When we are done with all the data... we can now turn data to a file... and process it
-            let dataString = self.transformDataToAudioFile()
-            self.sendProcessedAudioData(data:dataString)
-            count = 0
+            let data = self.pmcWaveConverter(rawData: self.audioData)
+            self.sendProcessedAudioData(data:data)
         }
     }
     
     func resetAudio(){
         self.count = 0
         self.audioData = [UInt8]()
-    }
-    
-    func transformDataToAudioFile() -> String{
-        let header = "RIFFeWAVEfmt00b0data"
-        let buf = [UInt8](header.utf8)
-        let array = buf + audioData
-        let buff = Data(bytes: array)
-        return buff.base64EncodedString()
     }
     
     func shortToByteArray(_ i: Int16) -> [UInt8] {
@@ -97,24 +91,43 @@ class AudioProcess: NSObject, BLEHandler_NewAudioDelegate {
         header.append(shortToByteArray(blockAlign), length: 2)
         header.append(shortToByteArray(bitsPerSample), length: 2)
         
-        //DATA
+        //DATA size and start
         header.append([UInt8]("data".utf8), length: 4)
+        header.append(intToByteArray(Int32(Data(rawData).count*2)), length: 4)
         
-        header.append(intToByteArray(Int32(Data(rawData).count)), length: 4)
+        //OLD uint8 attempt
+        //header.append(Data(rawData))
         
-        header.append(Data(rawData))
-        
+        // Uint16 attempt
+        var uint16Array:[UInt16] = rawData.map{UInt16($0)}
+        uint16Array = uint16Array.map{($0)*(2^16 - 1)}
+        let d = Data(fromArray: uint16Array)
+        header.append(d)
         
         //Finally write these to the memory somehow...
         let bytes = header as Data
         return bytes
     }
     
-    func sendProcessedAudioData(data:String){
+    func sendProcessedAudioData(data:Data){
         print("We have all of our audio data")
-        let dataDict:[String: String] = ["data": data]
+        let dataDict:[String: Data] = ["data": data]
         NotificationCenter.default.post(name: Notification.Name(rawValue: AUDIO_DONE_NOTIFICATION_KEY), object: self, userInfo:dataDict)
     }
     
     
+}
+
+extension Data {
+    
+    init<T>(fromArray values: [T]) {
+        var values = values
+        self.init(buffer: UnsafeBufferPointer(start: &values, count: values.count))
+    }
+    
+    func toArray<T>(type: T.Type) -> [T] {
+        return self.withUnsafeBytes {
+            [T](UnsafeBufferPointer(start: $0, count: self.count/MemoryLayout<T>.stride))
+        }
+    }
 }

@@ -48,9 +48,7 @@ class ViewController: UIViewController {
 //        print(notification.userInfo!["data"])
         let data = notification.userInfo!["data"]
         self.manager.manager.stopScan()
-        self.firebaseDelegate?.uploadToFirebase(data:data as! String)
-        
-        
+        self.firebaseDelegate?.upload(data: data as! Data)
     }
 
     //If we need to manually relaunch bluetooth
@@ -87,5 +85,7 @@ protocol Firebase_Delegate{
     func uploadToFirebase(data: String)
     
     func uploadTestToFirebase()
+    
+    func upload(data: Data)
 }
 

@@ -27,6 +27,11 @@ class FirebaseUploader: Firebase_Delegate {
         self.dataRef = Storage.storage()
     }
     
+    func upload(data: Data) {
+        self.uploadFileToFirebase(data: data)
+        self.uploadToFirebase(data: data.base64EncodedString())
+    }
+    
     //This uploads the files data only to firebase
     func uploadToFirebase(data: String){
         let email = "eknoxmobile@gmail.com"
@@ -38,9 +43,7 @@ class FirebaseUploader: Firebase_Delegate {
                 sleep(8)
                 self.ref.child("audio").child("USER123").observeSingleEvent(of: .value, with: { (snapshot) in
                     // Get user value
-                    let value = snapshot.value as? NSDictionary
-                    let procVal = value?["return_value"] as? String ?? ""
-                    print("The return value was \(procVal)")
+//                    let value = snapshot.value as? NSDictionary
                 }) { (error) in
                     print(error.localizedDescription)
                     print("Cloud function upload ERROR")
@@ -69,9 +72,7 @@ class FirebaseUploader: Firebase_Delegate {
                 sleep(3)
                 self.ref.child("audio").child("USER123").observeSingleEvent(of: .value, with: { (snapshot) in
                     // Get user value
-                    let value = snapshot.value as? NSDictionary
-                    let procVal = value?["return_value_translation"] as? String ?? ""
-                    print("The return value was \(procVal)")
+//                    let value = snapshot.value as? NSDictionary
                 }) { (error) in
                     print(error.localizedDescription)
                     print("Cloud function upload ERROR")
@@ -84,13 +85,12 @@ class FirebaseUploader: Firebase_Delegate {
     
     func uploadTestToFirebase() {
         print("Uploading test data")
-        let a = AudioProcess()
-        let wavData = a.pmcWaveConverter(rawData: getTestData()) as Data
-//        let wavData = getTestData2()
+//        let a = AudioProcess()
+//        let wavData = a.pmcWaveConverter(rawData: getTestData()) as Data
+        let wavData = getTestData2()
         uploadToFirebase(data: wavData.base64EncodedString())
         sleep(2)
         uploadFileToFirebase(data: wavData)
-        print("Data ready for upload")
     }
     
     
